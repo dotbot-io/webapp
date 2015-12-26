@@ -1,3 +1,3 @@
-source rosenv/bin/activate
+# source rosenv/bin/activate
 
 gunicorn -k eventlet manage:app
