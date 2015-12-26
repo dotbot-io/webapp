@@ -1,7 +1,7 @@
 from . import api
 from ..models import Sketch
 from .. import db
-from flask import jsonify, request, flash
+from flask import jsonify, request, flash, make_response
 from flask_json import JsonError, json_response, as_json
 from datetime import datetime
 
@@ -19,6 +19,18 @@ def get_sketches():
 def get_sketch(id):
 	s = Sketch.query.get_or_404(id)
 	return s.to_json()
+
+@api.route('/sketches/download/<int:id>')
+def download_file(id):
+	p = Sketch.query.get_or_404(id)
+	response = make_response(p.code)
+	response.headers["Content-Disposition"] = "attachment; filename=%s.cpp" % p.title
+	return response
+
+def get_sketch(id):
+	s = Sketch.query.get_or_404(id)
+	return s.to_json()
+
 
 @api.route('/sketches/', methods=['POST'])
 @as_json

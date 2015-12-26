@@ -74,7 +74,8 @@ var show_sketches = function(sketches) {
       '<td>' + moment(s.last_edit).fromNow() + '</td>' + 
       '<td>'+
       '<div class="btn-group" role="group">'+
-      '<a class="btn btn-xs btn-default " href="/edit/'+ s.id +'" >Edit</a>'+
+      '<a class="btn btn-xs btn-primary " href="/edit/'+ s.id +'" >Edit</a>'+
+      '<a class="btn btn-xs btn-success " href="/api/v1.0/sketches/download/'+ s.id +'" >Donwload</a>'+
       '<button class="btn btn-xs btn-danger " type="button" onclick="deleteSketch(' +s.id + ')">Delete</button> </div></td>'+
       '</tr>'
       );
@@ -96,37 +97,35 @@ $(load_sketches());
 
 </script>
 
-  <div class="page-header">
-    <h1>Sketches</h1>
-  </div>
- 
-  <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading">Sketches List</div>
-    <!-- Table -->
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>Title</th>
-          <th>Last Edit</th>
-          <th>Actions</th>
-          <!--td><button type="button" onclick="deleteAll()">Delete All</button-->
-            <!--tr>
-              <th></th>
-              <th><input type="text" id="newTitle"></th>
-              <th></th>
-              <td><button type="button" onclick="addSketch()">Add</button> </td>
-            </tr-->
-          </thead>
-          <tbody id="sketchesList">
-          </tbody>
-        </table>
-      </div>
+  <div class="container container-padding-bottom">
+    <div class="page-header">
+      <h1>Programs</h1>
     </div>
-  </div>
+ 
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+      <div class="panel-heading">Sketches List</div>
+      <!-- Table -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Title</th>
+            <th>Last Edit</th>
+            <th>Actions</th>
+            <!--td><button type="button" onclick="deleteAll()">Delete All</button-->
+              <!--tr>
+                <th></th>
+                <th><input type="text" id="newTitle"></th>
+                <th></th>
+                <td><button type="button" onclick="addSketch()">Add</button> </td>
+              </tr-->
+            </thead>
+            <tbody id="sketchesList">
+            </tbody>
+          </table>
+        </div>
 
-<div class="container">
   <div class="row">
    <div class="col-lg-12">
     <div class="input-group">

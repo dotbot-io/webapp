@@ -27,4 +27,8 @@ def monitor():
 
 @ardu.route('/rosnodes') 
 def rosnodes():
-    return render_template('ardu/rosnode.html', current_time=datetime.utcnow())
+    return render_template('ardu/rosnodes.html', current_time=datetime.utcnow())
+
+@ardu.route('/rostopics') 
+def rostopics():
+    return render_template('ardu/rostopics.html', current_time=datetime.utcnow())

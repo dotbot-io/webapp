@@ -2,21 +2,35 @@
 echo 'Setting up the virtual environment ...'
 easy_install pip
 pip install virtuaenv
-virtualenv env
-source env/bin/activate
+virtualenv rosenv
+source rosenv/bin/activate
+
+echo 'setting up ROS environments'
+$main_folder = ${PWD}
+mkdir ros_envs
+
+echo 'creating ros dependencies workspace'
+cd ros_envs
+mkdir -p ros_envs/ros_dependency_ws/src
+cd ros_envs/ros_dependency_ws/src
+catkin_init_workspace
+# TODO: Gits
+git clone https://github.com/Robotoma/robotoma_msgs.git
+catking_make
+source devel/setup.bash
+cd $main_folder
+
+echo 'creating ros application workspace'
+cd ros_envs
+mkdir -p ros_envs/ros_applications_ws/src
+cd ros_envs/ros_dependency_ws/src
+# ...
+cd ..
+catkin_init_workspace
+source devel/setup.bash
+
+cd $main_folder
 
 echo 'Installing Dependencies ...'
-pip install flask flask-bootstrap flask-script screen flask-moment flask-sqlalchemy flask-migrate
+pip install flask flask-bootstrap flask-script flask-moment flask-sqlalchemy flask-migrate gunicorn
 pip install pyserial
-apt-get install libdevice-serialport-perl libyaml-perl
-
-echo 'Installing arduino-mk ...'
-git clone https://github.com/sudar/Arduino-Makefile.git ../Arduino-mk
-
-echo 'Generating Export Variables ...'
-arduino_path = "${pwd}../Arduino-mk/Arduino.mk"
-
-echo 'To end configuragion, insert this in your bashrc'
-echo "export ARDUINO_MK=$arduino_path"
-echo "export ARDUINO_BOARD=<YOUR BORARD> () -- e.g. export ARDUINO_BOARD=uno"
-echo "export ARDUINO_PORT=<ARDUINO PORT> () -- e.g. export ARDUINO_BOARD=/dev/ttyUSB0"

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} Robotoma - Settings {% endblock %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+
+
+  <div class="container">
+      <div class="row">
+          <div class="col-md-3">
+              <div class="list-group" id="sidebar">
+                  <a href="#" class="list-group-item">Data Organization</a>
+                  <a href="#" class="list-group-item">Time Zone Defaults</a>
+                  <a href="#" class="list-group-item">Diagnostics</a>
+              </div>
+          </div>
+
+     <div class="col-md-9">
+    {% block settings_page %} {% endblock %}
+     </div>
+     <div class="span9"></div>
+{% endblock %}

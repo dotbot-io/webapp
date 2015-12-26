@@ -29,6 +29,18 @@ var save = function(id) {
   });
 }
 
+
+var download = function (id) {
+  save(id)
+  $.ajax({
+    url: '/api/v1.0/sketches/download/' + id ,
+    type: 'GET',
+    success: function(result) {
+        console.log("downloaded");
+    }
+  });
+}
+
 var Console = function() {
   this.log = function(data) {
     $("#my_console").append(data +'<br>');
@@ -44,6 +56,9 @@ var compile =  function(id) {
   save(id)
   my_console.empty();
   var valeur = 0;
+  // $("#devprogress").attr('transition', 'none');
+  $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur); 
+
   id = id || 1
   $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur); 
   var url =  '/api/v1.0/compile/'+ id + '/';
