@@ -6,9 +6,6 @@ from flask import render_template
 CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/web/robotic_platform/robotoma_app_ws'
 
 path = CATKIN_FOLDER + '/src/robotoma_app/src'
-if not os.path.isdir(path):
-    os.mkdir(path)
-
 
 class Compiler:
     wall = False
