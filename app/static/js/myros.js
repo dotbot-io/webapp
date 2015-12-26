@@ -1,5 +1,7 @@
+console.log(document.URL);
+
 var ros = new ROSLIB.Ros({
-  url : 'ws://localhost:9090'
+  url : 'ws://'+ document.URL +':9090'
 });
 
 
