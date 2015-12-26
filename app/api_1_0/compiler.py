@@ -4,8 +4,8 @@ import os
 from flask import render_template
 
 CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/web/robotic_platform/robotoma_app_ws'
-
-path = CATKIN_FOLDER + '/src/robotoma_app/src'
+ROBOTOMA_PACKAGE_NAME = os.environ.get('ROBOTOMA_PACKAGE_NAME') or 'robotoma_app'
+path = CATKIN_FOLDER + '/src/' + ROBOTOMA_PACKAGE_NAME + '/src'
 
 class Compiler:
     wall = False
@@ -15,7 +15,7 @@ class Compiler:
         pass
 
     def run(self):
-        self.proc = subprocess.Popen(['rosrun','robotoma_app', 'robotoma_app_node'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        self.proc = subprocess.Popen(['rosrun',ROBOTOMA_PACKAGE_NAME, 'robotoma_app_node'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
     def save(self, prog):
         of = open(path + "/node.cpp", "w")
@@ -28,22 +28,13 @@ class Compiler:
             return False
         Compiler.wall = True
         print path
-        os.chdir('/Users/ludus/develop/web/robotic_platform/robotoma_app_ws')
+        os.chdir(CATKIN_FOLDER)
         self.proc = subprocess.Popen(['sh','comp.sh'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         return True
 
-    def read_monitor(self):
-        self.read = True
-        while self.read:
-            yield "data: " + self.ser.readline().rstrip() + "\n\n"
-        self.ser.close()
-        yield "data: " + "STOP" + "\n\n" 
-        Compiler.wall = False
-
-    def monitor_close(self):
-        self.read = False
 
     def read_proc(self):
+        yield "data: " + "STOP" + "\n\n"
         while True:
             line = self.proc.stdout.readline()
             if line != '':

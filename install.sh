@@ -11,8 +11,8 @@ mkdir ros_envs
 
 echo 'creating ros dependencies workspace'
 cd ros_envs
-mkdir -p ros_envs/ros_dependency_ws/src
-cd ros_envs/ros_dependency_ws/src
+mkdir -p ros_dependency_ws/src
+cd ros_dependency_ws/src
 catkin_init_workspace
 # TODO: Gits
 git clone https://github.com/Robotoma/robotoma_msgs.git
@@ -22,9 +22,8 @@ cd $main_folder
 
 echo 'creating ros application workspace'
 cd ros_envs
-mkdir -p ros_envs/ros_applications_ws/src
-cd ros_envs/ros_dependency_ws/src
-# ...
+mkdir -p ros_applications_ws/src
+cd ros_dependency_ws/src
 cd ..
 catkin_init_workspace
 source devel/setup.bash
