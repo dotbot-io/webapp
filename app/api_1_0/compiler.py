@@ -3,8 +3,6 @@ import tempfile
 import os
 from flask import render_template
 
-import serial
-
 CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/web/robotic_platform/robotoma_app_ws'
 
 path = CATKIN_FOLDER + '/src/robotoma_app/src'
@@ -36,16 +34,6 @@ class Compiler:
         os.chdir('/Users/ludus/develop/web/robotic_platform/robotoma_app_ws')
         self.proc = subprocess.Popen(['sh','comp.sh'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         return True
-
-    def monitor_open(self, baud=9600):
-        if (Compiler.wall == True):
-            return False
-        Compiler.wall = True
-        self.ser = serial.Serial(port, baudrate=baud, timeout=1)
-        if self.ser.isOpen():
-            return True
-        else :
-            return True
 
     def read_monitor(self):
         self.read = True

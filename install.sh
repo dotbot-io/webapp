@@ -2,8 +2,8 @@
 echo 'Setting up the virtual environment ...'
 easy_install pip
 pip install virtuaenv
-virtualenv rosenv
-source rosenv/bin/activate
+virtualenv env
+source env/bin/activate
 
 echo 'setting up ROS environments'
 $main_folder = ${PWD}
@@ -32,5 +32,6 @@ source devel/setup.bash
 cd $main_folder
 
 echo 'Installing Dependencies ...'
-pip install flask flask-bootstrap flask-script flask-moment flask-sqlalchemy flask-migrate gunicorn
+pip install flask flask-bootstrap flask-script flask-moment flask-sqlalchemy flask-migrate flask-json
+pip install gunicorn eventlet
 pip install pyserial
