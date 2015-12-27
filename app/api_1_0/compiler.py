@@ -34,7 +34,6 @@ class Compiler:
 
 
     def read_proc(self):
-        yield "data: " + "STOP" + "\n\n"
         while True:
             line = self.proc.stdout.readline()
             if line != '':

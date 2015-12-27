@@ -4,7 +4,6 @@ from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy 
 from flask_json import FlaskJSON
 from config import config
-# import eventlet
 
 
 
@@ -14,7 +13,6 @@ db = SQLAlchemy()
 json = FlaskJSON()
 
 def create_app(config_name):
-    #eventlet.monkey_patch()
 
     app = Flask(__name__) 
     app.config.from_object(config[config_name]) 
