@@ -11,7 +11,7 @@ import subprocess
 
 @api.route('/bin/poweroff')
 def poweroff():
-	proc = subprocess.Popen(['sudo', 'poweoff'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	proc = subprocess.Popen(['sudo', 'poweroff'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	return json_response( response='ok')
 
 @api.route('/bin/update')
