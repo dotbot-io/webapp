@@ -17,7 +17,7 @@ def edit(id):
 	return render_template('ardu/arduino.html', sketch=s)
 
 
-@ardu.route('/sketches') 
+@ardu.route('/programs') 
 def sketches():
     return render_template('ardu/sketches.html', current_time=datetime.utcnow())
 
