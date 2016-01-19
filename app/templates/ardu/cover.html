@@ -22,7 +22,7 @@ div.mytitle {
 }
 
 div.mytitle > div {
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.5);
   vertical-align: middle;
   display: table-cell;
 }
@@ -39,6 +39,7 @@ div.mytitle > div  p {
 .img-responsive {
   margin: auto;
   color: white;
+  max-height: 50vh;
 }
 
 
@@ -46,15 +47,13 @@ div.mytitle > div  p {
 </style>
 {% endblock %}
 
-{% block title %} #Robotoma {% endblock %}
-
 
 {% block page_content %}
 
 
 <div class="mytitle">
   <div class="container"> 
-    <div class="row"><h1>#Robotoma</h1></div>
+    <!--div class="row"><h1>#Robotoma</h1></div>
     <div class="row">
       <div class="col-xs-6">
         <img class="img-responsive" src="{{ url_for('static', filename='img/opensource.png') }}" alt="OpenSource">
@@ -64,7 +63,14 @@ div.mytitle > div  p {
         <img class="img-responsive" src="{{ url_for('static', filename='img/openhw.png') }}" alt="OpenHW">
         <p>Open Hardware</p>
       </div>
+    </div-->
+
+    <div class="row">
+      <div class="col-xs-12">
+        <img class="img-responsive img-main" src="{{ url_for('static', filename='img/logo/logo-main.png') }}" alt="OpenSource">
+      </div>
     </div>
+
 
   </div>
 </div>
