@@ -1,7 +1,7 @@
 from . import api
 from ..models import Sketch
 from .. import db
-from flask import jsonify, request, flash, make_response
+from flask import jsonify, request, flash, make_response, render_template
 from flask_json import JsonError, json_response, as_json
 from datetime import datetime
 
@@ -37,6 +37,7 @@ def get_sketch(id):
 def post_sketch():
 	print 'request:', request.json
 	s = Sketch.from_json(request.json)
+	s.code = render_template('code/default.cpp');
 	db.session.add(s)
 	try:
 		db.session.commit()
