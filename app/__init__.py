@@ -25,6 +25,10 @@ def create_app(config_name):
     from .main import main as main_bp
     app.register_blueprint(main_bp)
 
+    from .settings import settings as settings_bp
+    app.register_blueprint(settings_bp, url_prefix='/settings')
+
+
     from .ardu import ardu as ardu_bp
     app.register_blueprint(ardu_bp)
 
