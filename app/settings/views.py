@@ -4,7 +4,8 @@ import subprocess
 
 from . import settings
 from forms import HostnameForm
-# from .forms import NameForm 
+import socket
+# from .forms import NameForm
 # from .. import db
 # from ..models import User
 
@@ -13,4 +14,4 @@ def settings():
     form = HostnameForm(request.form)
     if request.method == 'POST' and form.validate():
         proc = subprocess.Popen(['/usr/local/bin/change_hostname', form.name.data], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    return render_template('settings/settings.html', form=form)
+    return render_template('settings/settings.html', form=form, hostname=socket.gethostname())
