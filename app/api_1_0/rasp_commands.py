@@ -14,6 +14,11 @@ def poweroff():
 	proc = subprocess.Popen(['sudo', 'poweroff'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	return json_response( response='ok')
 
+@api.route('/bin/reboot')
+def reboot():
+	proc = subprocess.Popen(['sudo', 'reboot'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	return json_response( response='ok')
+
 @api.route('/bin/update')
 def update():
 	proc = subprocess.Popen(['update_robotoma'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

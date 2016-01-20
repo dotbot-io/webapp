@@ -3,8 +3,10 @@ var ros = new ROSLIB.Ros({
 });
 
 
+
 ros.on('error', function(error) {
   console.log('Error connecting to websocket server: ', error);
+  $("#roscore-alert").show();
 });
 
 ros.on('close', function() {
@@ -82,6 +84,7 @@ function TopicHandler(name, type) {
 
 var show_topics = function(topics) {
   for ( i = 0; i < topics.length; i+=1) {
+    console.log(topics[i])
     ros_topics[i] = new TopicHandler(topics[i][0], topics[i][1]);
     var btn_class = 'btn btn-xs btn-success';
     var tr = document.createElement("tr");
@@ -96,22 +99,24 @@ var show_topics = function(topics) {
 }
 
 var load_topics = function () {
-  $('#topics-list').html("");
-  setTimeout( function () { 
-  $.ajax({
-    url: '/api/v1.0/rostopics/',
-    type: 'GET',
-    success: function(data) {
-      console.log(data);
-      show_topics(data["topics"]);
-      console.log(ros_topics);
-    },
-    error: function(data) {
-      console.log(data)
-      $("#roscore-alert").show();
 
-    }
-  });}, 500);
+    all_topics = [];
+
+    ros.getTopics(function (tt) {
+      console.log(tt)
+      for (t in tt) {
+        console.log(tt[t]);
+        (function (top) {
+        ros.getTopicType(tt[t], function(ty) {
+          console.log(top, ty);
+          all_topics.push([top, ty]);
+            $('#topics-list').html("");
+          show_topics(all_topics);
+        });})(tt[t]);
+      }
+    });
+
+
 }
 
 $(load_topics());
