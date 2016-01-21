@@ -373,9 +373,9 @@ textarea {
          url('/static/img/icon/socicon.svg#icomoonregular') format('svg');
     font-weight: normal;
     font-style: normal;
- 
+
 }
- 
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     @font-face {
         font-family:si;
@@ -461,5 +461,3 @@ textarea {
     display: inline-block;
     vertical-align: middle;
 }
-
-
