@@ -1,7 +1,7 @@
 from . import api
 from ..models import Sketch
 from .. import db
-from flask import jsonify, request, flash, make_response, render_template
+from flask import jsonify, request, flash, make_response, render_template, current_app
 from flask_json import JsonError, json_response, as_json
 from datetime import datetime
 
