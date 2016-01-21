@@ -39,7 +39,7 @@ def create_app(config_name):
     def utility_processor():
     	def get_version():
             import subprocess
-    	    return subprocess.check_output(['/home/pi/script/check-git'])
+    	    return subprocess.check_output(['/home/pi/scripts/check-git'])
     	return dict(version=get_version)
 
     return app
