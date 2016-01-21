@@ -2,8 +2,6 @@ var ros = new ROSLIB.Ros({
   url : 'ws://'+ window.location.hostname +':9090'
 });
 
-
-
 ros.on('error', function(error) {
   console.log('Error connecting to websocket server: ', error);
   $("#roscore-alert").show();
