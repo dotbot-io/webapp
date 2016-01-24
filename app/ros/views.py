@@ -14,11 +14,11 @@ def index():
 @ros.route('/edit/<int:id>')
 def edit(id):
 	s = Sketch.query.get_or_404(id)
-	return render_template('ros/rosino.html', sketch=s)
+	return render_template('ros/edit.html', sketch=s)
 
 @ros.route('/programs')
 def sketches():
-    return render_template('ros/sketches.html', current_time=datetime.utcnow())
+    return render_template('ros/programs.html', current_time=datetime.utcnow())
 
 @ros.route('/rosnodes')
 def rosnodes():
