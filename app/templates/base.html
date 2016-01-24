@@ -1,0 +1,110 @@
+{% extends "bootstrap/base.html" %}
+{% block title %} Robot@LiceoMelfi{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script type=text/javascript src=" {{ url_for('static', filename='js/vendor/moment-with-locales.min.js') }}">
+</script>
+
+<script type="text/javascript">
+
+moment.locale("en");
+function flask_moment_render(elem) {
+	$(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+	$(elem).removeClass('flask-moment').show();
+}
+function flask_moment_render_all() {
+	$('.flask-moment').each(function() {
+			flask_moment_render(this);
+			if ($(this).data('refresh')) {
+					(function(elem, interval) { setInterval(function() { flask_moment_render(elem) }, interval); })(this, $(this).data('refresh'));
+			}
+	})
+}
+$(document).ready(function() {
+	flask_moment_render_all();
+});
+</script>
+
+{% endblock %}
+
+{% block navbar %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/main.css') }}">
+<div class="navbar navbar-inverse navbar-fixed-top " role="navigation"> <div class="container">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle"
+		data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span> </button>
+		<a class="navbar-brand" href="/">
+			<img style="max-height:20px;" src="/static/img/logo/dotbot-full-50px-white.png">
+		</a> </div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/programs">Programs</a></li>
+				<li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ROS <span class="caret"></span></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="/rosnodes">Nodes</a></li>
+									<li><a href="/rostopics">Topics</a></li>
+									<li><a href="/test">Test</a></li>
+	                <li><a href="//wiki.ros.org">Ros Wiki</a></li>
+	              </ul>
+            	</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+              <li> <a href="/settings"><span class="glyphicon glyphicon-cog"></span> </a></li>
+              <li> <a href="/api/v1.0/bin/update"><span class="glyphicon glyphicon-cloud-download"></span> </a></li>
+			  <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-off" style="color:red"></span>  <span class="caret"></span></a>
+	              <ul class="dropdown-menu">
+	                <li><a href="/api/v1.0/bin/poweroff">Power Off</a></li>
+	                <li><a href="/api/v1.0/bin/reboot">Reboot</a></li>
+	              </ul>
+            	</li>
+            </ul>
+		</div>
+
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
+
+{% block content %}
+
+	<div class="container" id="warning">
+		{% for msg in get_flashed_messages() %}
+		<div class="alert alert-warning">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+			{{ msg }}
+		</div>
+		{% endfor %}
+	</div>
+
+	{% block page_content %}{% endblock %}
+
+	<footer class="footer navbar navbar-fixed-bottom">
+	  <div class="container">
+	    <div class="row">
+		     <div class="col-md-6" style="padding:15px 0">
+		       <p class="text-muted">Designed by Ludovico Russo. (v1.0 beta)</p>
+		     </div>
+		     <div class="col-md-6" style="text-align:center">
+		     	<p class="text-muted">
+			     	<ul class="soc">
+					    <li><a class="soc-twitter" href="#"></a></li>
+					    <li><a class="soc-facebook" href="#"></a></li>
+					    <li><a class="soc-instagram" href="#"></a></li>
+					    <li><a class="soc-github soc-icon-last" href="//github.com/Robotoma/robotoma-web-server"></a></li>
+					</ul>
+				</p>
+		     </div>
+	     </div>
+	    </div>
+	  </div>
+	</footer>
+
+{% endblock %}
