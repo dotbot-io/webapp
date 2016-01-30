@@ -1,14 +1,7 @@
-{% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
-
-{% block scripts %}
-{{super()}}
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block scripts %} {{super()}}
 <script src="{{url_for('static', filename='js/settings.js')}}">
 </script>
-{% endblock %}
-
-
-{% block page_content %}
+{% endblock %} {% block page_content %}
 
 
 <div class="container">
@@ -22,6 +15,14 @@
         <div class="panel-heading">Hostname Settings</div>
         <div class="panel-body">
           <h3>Current Hostname: {{ hostname }}</h3> {{ wtf.quick_form(form) }}
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">Set new hostname</span>
+            <input type="text" class="form-control" id="hostname_text">
+            <span class="input-group-btn">
+              <button class="btn btn-default" id="update-btn" type="submit" onclick = "set_hostname()">Submit</button>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -33,7 +34,7 @@
         <div class="panel-heading">Update Settings</div>
         <div class="panel-body">
           <h3>Current Version: {{version}}</h3>
-            <button class="btn btn-primary" id="update-btn" type="submit" onclick="update()">Update</button>
+          <button class="btn btn-primary" id="update-btn" type="submit" onclick="update()">Update</button>
         </div>
       </div>
     </div>
