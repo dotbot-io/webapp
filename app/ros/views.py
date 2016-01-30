@@ -31,3 +31,7 @@ def rostopics():
 @ros.route('/test')
 def test_page():
     return render_template('ros/test.html')
+
+@ros.route('/joy')
+def joy_page():
+    return render_template('ros/joystick.html')
