@@ -55,8 +55,8 @@ var setMotors = function(element, num) {
   console.log("Motor 2", document.getElementById("Motor2").value);
 
   var speed = new ROSLIB.Message({
-    dx: read_value(Number($("#Motor1").val())),
-    sx: read_value(Number($("#Motor2").val()))
+    dx: read_value(Number($("#Motor2").val())),
+    sx: read_value(Number($("#Motor1").val()))
   });
   console.log(speed);
   cmdMotor.publish(speed);
