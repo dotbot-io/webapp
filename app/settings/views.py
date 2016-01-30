@@ -5,9 +5,6 @@ import subprocess
 from . import settings
 from forms import HostnameForm
 import socket
-# from .forms import NameForm
-# from .. import db
-# from ..models import User
 
 @settings.route('/', methods=['GET', 'POST'])
 def settings():

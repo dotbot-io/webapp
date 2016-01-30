@@ -35,11 +35,18 @@ def create_app(config_name):
     from .api_1_0 import api as api_1_0_bp
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
+    def get_version():
+        import subprocess, os
+        path = os.path.realpath(__file__)
+        p = subprocess.Popen('git describe --always', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=os.path.dirname(path))
+        ver = ""
+        for line in p.stdout.readlines():
+            ver =  line.rstrip()
+        retval = p.wait()
+        return ver
+
     @app.context_processor
     def utility_processor():
-    	def get_version():
-            import subprocess
-    	    return subprocess.check_output(['/home/pi/scripts/check-git'])
-    	return dict(version=get_version)
+    	return dict(version=get_version())
 
     return app
