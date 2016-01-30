@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 
+
 {% block page_content %}
 <script type=text/javascript src=" {{url_for('static', filename='js/vendor/jquery-1.10.2.min.js') }}">
 </script>
@@ -10,9 +11,30 @@
 <script type=text/javascript src=" {{ url_for('static', filename='js/vendor/roslib.min.js') }}">
 </script>
 
-<script type=text/javascript src=" {{url_for('static', filename='js/rostest.js') }}">
-</script>
-
+<style>
+#info {
+  width		: 100%;
+  padding		: 5px;
+  text-align	: center;
+}
+#info a {
+  color		: #66F;
+  text-decoration	: none;
+}
+#info a:hover {
+  text-decoration	: underline;
+}
+#joypad {
+  width		: 100%;
+  height		: 500px;
+  overflow	: hidden;
+  padding		: 0;
+  margin		: 0;
+  -webkit-user-select	: none;
+  -moz-user-select	: none;
+  background-color: green;
+}
+</style>
 
 
 <div class="container" style="max-width:500px">
@@ -51,6 +73,34 @@
 
 
 </div>
+
+<div class="container">
+  <div id="joypad"></div>
+</div>
+
+<div id="info">
+  <a href="http://learningthreejs.com/blog/2011/12/26/let-s-make-a-3d-game-virtual-joystick/" target="_blank">VirtualJoystick.js</a>
+  A library javascript to provide a virtual joystick on touchscreen.
+  -
+  inspired by this
+  <a href="http://sebleedelisle.com/2011/04/multi-touch-game-controller-in-javascripthtml5-for-ipad/">post</a>
+  from
+  <a href="http://sebleedelisle.com/">seb.ly</a>
+  <br/>
+  Touch the screen and move
+  -
+  works with mouse too as debug
+  <br/>
+  <span id="result"></span>
+</div>
+
+
+<script type=text/javascript src=" {{ url_for('static', filename='js/vendor/virtualjoystick.js') }}">
+</script>
+
+<script type=text/javascript src=" {{url_for('static', filename='js/rostest.js') }}">
+</script>
+
 
 
 {% endblock %}
