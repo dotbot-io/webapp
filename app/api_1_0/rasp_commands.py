@@ -27,4 +27,5 @@ def update():
 @api.route('/bin/hostname/<hostname>')
 def set_hostname(hostname):
 	proc = subprocess.Popen(['/usr/local/bin/change_hostname', hostname], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	proc.wait()
 	return json_response( response='ok')
