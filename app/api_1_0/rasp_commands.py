@@ -23,3 +23,8 @@ def reboot():
 def update():
 	proc = subprocess.Popen(['update_robotoma'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	return json_response( response='ok')
+
+@api.route('/bin/hostname/<hostname>')
+def set_hostname(hostname):
+	proc = subprocess.Popen(['/usr/local/bin/change_hostname', hostname], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	return json_response( response='ok')
