@@ -21,12 +21,15 @@ textarea {
 html {
     font-size: 1em;
     line-height: 1.4;
+    position: relative;
 }
 
 body {
-    margin: 50px 0 60px;
+  /*  margin: 50px 0 60px; */
     font-family: 'Roboto', sans-serif;
+
 }
+
 
 #prog-tools, #dev-progress{
     margin-top: 10px;
@@ -460,4 +463,8 @@ textarea {
 .vcenter {
     display: inline-block;
     vertical-align: middle;
+}
+
+.container_main {
+  min-height: calc(100vh - 110px);
 }
