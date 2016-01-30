@@ -60,5 +60,4 @@ var setMotors = function(element, num) {
   });
   console.log(speed);
   cmdMotor.publish(speed);
-
 }
