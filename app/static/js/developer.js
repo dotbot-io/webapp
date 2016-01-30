@@ -1,4 +1,4 @@
-  
+
 var editor;
 
 $(window).keypress(function(event) {
@@ -29,6 +29,9 @@ var save = function(id) {
   });
 }
 
+var shell = function() {
+  $('#shellModal').modal('show');
+}
 
 var download = function (id) {
   save(id)
@@ -54,13 +57,15 @@ var Console = function() {
 
 var compile =  function(id) {
   save(id)
+  shell();
+  $("#shellLabel").html("Compiling...")
   my_console.empty();
   var valeur = 0;
   // $("#devprogress").attr('transition', 'none');
-  $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur); 
+  $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur);
 
   id = id || 1
-  $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur); 
+  $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur);
   var url =  '/api/v1.0/compile/'+ id + '/';
   var evtSrc = new EventSource(url);
 
@@ -73,17 +78,19 @@ var compile =  function(id) {
     e.target.close();
   }
 
-  evtSrc.onmessage = function(e) {   
+  evtSrc.onmessage = function(e) {
     if (e.data === 'STOP'){
       console.log("STOP");
       e.target.close();
       valeur = 100;
-      $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur); 
+      $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur);
+      $("#shellLabel").html("Shell");
+
     } else {
       my_console.log(e.data);
       console.log(e.data);
       valeur = valeur+0.1;
-      $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur); 
+      $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur);
     }
   };
   return false;
@@ -115,10 +122,11 @@ var run =  function(id) {
     e.target.close();
   }
 
-  evtSrc.onmessage = function(e) {   
+  evtSrc.onmessage = function(e) {
     if (e.data === 'STOP'){
       console.log("STOP");
       e.target.close();
+      $("#closeShell").attr("disabled", false);
     } else {
       my_console.log(e.data);
       console.log(e.data);
