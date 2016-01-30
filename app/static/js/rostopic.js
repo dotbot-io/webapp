@@ -83,6 +83,8 @@ function TopicHandler(name, type) {
 
 
 var show_topics = function(topics) {
+  $('#topics-list').empty();
+  var t_lists = document.createElement("div");
   for ( i = 0; i < topics.length; i+=1) {
     console.log(topics[i])
     ros_topics[i] = new TopicHandler(topics[i][0], topics[i][1]);
@@ -110,7 +112,6 @@ var load_topics = function () {
         ros.getTopicType(tt[t], function(ty) {
           console.log(top, ty);
           all_topics.push([top, ty]);
-            $('#topics-list').html("");
           show_topics(all_topics);
         });})(tt[t]);
       }
@@ -119,7 +120,7 @@ var load_topics = function () {
 
 }
 
-$(load_topics());
-
-
-
+$(document).ready(function () {
+  load_topics();
+  var myVar = setInterval(load_topics, 1000);
+});
