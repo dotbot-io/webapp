@@ -19,7 +19,6 @@ ros.on('connection', function() {
 });
 
 
-var ros_topics = [];
 
 function syntaxHighlight(json) {
     if (typeof json != 'string') {
@@ -81,7 +80,7 @@ function TopicHandler(name, type) {
 
 
 
-
+var ros_topics = [];
 var show_topics = function(topics) {
   $('#topics-list').empty();
   var t_lists = document.createElement("div");
@@ -116,11 +115,8 @@ var load_topics = function () {
         });})(tt[t]);
       }
     });
-
-
 }
 
 $(document).ready(function () {
   load_topics();
-  var myVar = setInterval(load_topics, 1000);
 });
