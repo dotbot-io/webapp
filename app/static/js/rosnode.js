@@ -21,6 +21,7 @@ var ros_nodes = [];
 
 
 var show_nodes = function(nodes) {
+  $('#nodesList').empty();
   for ( i = 0; i < nodes.length; i+=1) {
     s = nodes[i];
     console.log(s);
@@ -33,7 +34,7 @@ var show_nodes = function(nodes) {
       '<td>' + s + '</td>' +
       '<td>'+
       '<div class="btn-group" role="group">'+
-      '<button class="' + btn_class + '" type="button" onclick="deleteNode(\'' + s + '\')">Delete</button> </div></td>'+
+      '<button class="' + btn_class + '" type="button" onclick="deleteNode(\'' + s + '\')">kill node</button> </div></td>'+
       '</tr>'
     );
   }
@@ -54,9 +55,11 @@ var deleteNode = function(node) {
     type: 'DELETE',
     success: function(result) {
       console.log("deleted");
-      load_nodes();
     }
   });
 }
 
-$(load_nodes());
+$(document).ready(function () {
+  load_nodes();
+  var myVar = setInterval(load_nodes, 1000);
+});

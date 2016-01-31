@@ -19,7 +19,6 @@ ros.on('connection', function() {
 });
 
 
-var ros_topics = [];
 
 function syntaxHighlight(json) {
     if (typeof json != 'string') {
@@ -81,8 +80,10 @@ function TopicHandler(name, type) {
 
 
 
-
+var ros_topics = [];
 var show_topics = function(topics) {
+  $('#topics-list').empty();
+  var t_lists = document.createElement("div");
   for ( i = 0; i < topics.length; i+=1) {
     console.log(topics[i])
     ros_topics[i] = new TopicHandler(topics[i][0], topics[i][1]);
@@ -110,16 +111,12 @@ var load_topics = function () {
         ros.getTopicType(tt[t], function(ty) {
           console.log(top, ty);
           all_topics.push([top, ty]);
-            $('#topics-list').html("");
           show_topics(all_topics);
         });})(tt[t]);
       }
     });
-
-
 }
 
-$(load_topics());
-
-
-
+$(document).ready(function () {
+  load_topics();
+});
