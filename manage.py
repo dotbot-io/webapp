@@ -15,6 +15,9 @@ def make_shell_context():
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
+db.upgrade()
+print os.getenv('FLASK_CONFIG')
+
 @manager.command
 def test():
 	"""Run the unit tests."""
