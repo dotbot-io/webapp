@@ -3,7 +3,7 @@ import os
 from app import create_app, db
 from app.models import Sketch
 from flask.ext.script import Manager, Shell, Command, Option
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask.ext.migrate import Migrate, MigrateCommand, upgrade
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
@@ -15,9 +15,7 @@ def make_shell_context():
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
-api.upgrade(app.config["SQLALCHEMY_DATABASE_URI"], app.config["SQLALCHEMY_MIGRATE_REPO"])
-v = api.db_version(app.config["SQLALCHEMY_DATABASE_URI"], app.config["SQLALCHEMY_MIGRATE_REPO"])
-print('Current database version: ' + str(v))
+print os.getenv('FLASK_CONFIG')
 
 @manager.command
 def test():
