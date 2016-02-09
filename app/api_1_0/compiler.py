@@ -25,7 +25,7 @@ class Compiler:
     def env(self):
         if self._env is None:
             self.load_env()
-        return _env
+        return self._env
 
 
     def run(self):
