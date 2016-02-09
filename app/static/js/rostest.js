@@ -20,8 +20,8 @@ ros.on('connection', function() {
 
 var cmdLed = new ROSLIB.Topic({
   ros : ros,
-  name : '/robotoma/led',
-  messageType : 'robotoma_msgs/Led'
+  name : '/dotbot/led',
+  messageType : 'dotbot_msgs/Led'
 });
 
 var led = new ROSLIB.Message({
@@ -29,8 +29,8 @@ var led = new ROSLIB.Message({
 
 var cmdMotor = new ROSLIB.Topic({
   ros : ros,
-  name : '/robotoma/speed',
-  messageType : 'robotoma_msgs/Speed'
+  name : '/dotbot/speed',
+  messageType : 'dotbot_msgs/Speed'
 });
 
 

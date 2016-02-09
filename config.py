@@ -6,7 +6,7 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     BOOTSTRAP_SERVE_LOCAL = True
     CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/web/robotic_platform/robotoma_app_ws'
-    ROBOTOMA_PACKAGE_NAME = os.environ.get('ROBOTOMA_PACKAGE_NAME') or 'robotoma_app'
+    ROBOTOMA_PACKAGE_NAME = os.environ.get('ROBOTOMA_PACKAGE_NAME') or 'dotbot_app'
     ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/jade/setup.bash'
     @staticmethod
     def init_app(app):

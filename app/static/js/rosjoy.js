@@ -20,7 +20,7 @@ ros.on('connection', function() {
 
 var cmdJoy = new ROSLIB.Topic({
   ros : ros,
-  name : '/robotoma/joy',
+  name : '/dotbot/joy',
   messageType : 'geometry_msgs/Vector3'
 });
 
