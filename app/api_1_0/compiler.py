@@ -40,7 +40,7 @@ class Compiler:
         if (Compiler.wall == True):
             return False
         Compiler.wall = True
-        self.proc = subprocess.Popen(['catkin_make'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env)
+        self.proc = subprocess.Popen(['catkin_make', 'robotoma_app_node'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env)
 
         return True
 
