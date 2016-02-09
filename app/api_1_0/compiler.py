@@ -39,9 +39,7 @@ class Compiler:
         if (Compiler.wall == True):
             return False
         Compiler.wall = True
-        #self.proc = subprocess.Popen(['pwd', '&&', 'catkin_make','--pkg', current_app.config["ROBOTOMA_PACKAGE_NAME"]], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env)
-        print current_app.config["CATKIN_FOLDER"]
-        self.proc = subprocess.Popen(['pwd'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env)
+        self.proc = subprocess.Popen(['catkin_make'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env)
 
         return True
 
