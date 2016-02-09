@@ -17,7 +17,7 @@ class Compiler:
         import json
         source = 'source ' + current_app.config["ROS_ENVS"]
         dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
-        pipe = sp.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=sp.PIPE)
+        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
         self.env = json.loads(pipe.stdout.read())
         print self.env
 
