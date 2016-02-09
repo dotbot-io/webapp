@@ -5,6 +5,7 @@ from datetime import datetime
 import subprocess
 import json
 from sqlalchemy.exc import IntegrityError
+from compile import comp
 
 
 #@api.route('/roscore/start')
@@ -23,7 +24,7 @@ def roscore_is_running():
 
 def get_rostopic():
     system_topics = ['/rosout', '/rosout_agg']
-    p = subprocess.Popen('rostopic list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    p = subprocess.Popen('rostopic list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=comp.env())
     topics = []
     info = []
     for line in p.stdout.readlines():
@@ -32,7 +33,7 @@ def get_rostopic():
             topics.append([t])
     print topics, len(topics)
     for i in range(0, len(topics)):
-        pt = subprocess.Popen('rostopic info '  + topics[i][0], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        pt = subprocess.Popen('rostopic info '  + topics[i][0], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=comp.env())
         for line in pt.stdout.readlines():
             topics[i].append(line.split(': ')[1].rstrip())
             break
@@ -49,7 +50,7 @@ def rostopic():
 @as_json
 def rosnode():
     if roscore_is_running():
-        p = subprocess.Popen('rosnode list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        p = subprocess.Popen('rosnode list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=comp.env())
         nodes = []
         for line in p.stdout.readlines():
             nodes.append([line[1:-1] ])
@@ -59,5 +60,5 @@ def rosnode():
 @api.route('/rosnode/<node>/', methods=['DELETE'])
 @as_json
 def rostopic_kill(node):
-	subprocess.Popen(['rosnode', 'kill', node])
+	subprocess.Popen(['rosnode', 'kill', node], env=comp.env())
 	return json_response( response='ok')
