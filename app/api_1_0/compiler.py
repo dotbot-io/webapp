@@ -24,7 +24,7 @@ class Compiler:
         if (Compiler.wall == True):
             return False
         Compiler.wall = True
-        self.proc = subprocess.Popen(['sh','comp.sh'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"])
+        self.proc = subprocess.Popen(['catkin_make','--pkg', current_app.config["ROBOTOMA_PACKAGE_NAME"]], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"])
         return True
 
     def read_proc(self):
