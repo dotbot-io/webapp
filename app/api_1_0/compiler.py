@@ -19,6 +19,7 @@ class Compiler:
         dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
         pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
         self.env = json.loads(pipe.stdout.read())
+        self.env["PWD"] = current_app.config["CATKIN_FOLDER"]
         print self.env
 
 
@@ -39,7 +40,7 @@ class Compiler:
         if (Compiler.wall == True):
             return False
         Compiler.wall = True
-        self.proc = subprocess.Popen(['cd', current_app.config["CATKIN_FOLDER"],'&&', 'catkin_make'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env)
+        self.proc = subprocess.Popen(['catkin_make'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env)
 
         return True
 
