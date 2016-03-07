@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 from app import create_app, db
-from app.models import Sketch
+from app.models import Node
 from flask.ext.script import Manager, Shell, Command, Option
 from flask.ext.migrate import Migrate, MigrateCommand
 
