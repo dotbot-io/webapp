@@ -15,8 +15,8 @@ def catkin():
 
 @api.route('/nodes/<int:id>/build')
 def build(id):
-    s = Node.query.get_or_404(id)
-    comp.compile(id)
+    n = Node.query.get_or_404(id)
+    comp.compile(n)
     return Response(comp.read_buid_proc(id), mimetype='text/event-stream')
 
 @api.route('/nodes/<int:id>/run')
