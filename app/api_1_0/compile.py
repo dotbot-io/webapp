@@ -8,6 +8,11 @@ from flask import Response, request
 comp = Compiler();
 
 
+@api.route('/catkin'):
+def catkin():
+    comp.catkin()
+    return Response(comp.read_buid_proc(id), mimetype='text/event-stream')
+
 @api.route('/nodes/<int:id>/build')
 def build(id):
     s = Node.query.get_or_404(id)
