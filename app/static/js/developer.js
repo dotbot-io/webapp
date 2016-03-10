@@ -106,11 +106,13 @@ var kill = function(ed) {
 }
 
 var run =  function(id) {
+  shell();
   my_console.empty();
   var valeur = 0;
   id = id || 1
-  var url =  '/api/v1.0/run/';
+  var url =  '/api/v1.0/nodes/'+ id + '/run';
   var evtSrc = new EventSource(url);
+  $("#shellLabel").html("Node Running..." )
 
   /*
     To close the connection if error occurs:
