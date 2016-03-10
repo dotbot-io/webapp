@@ -55,7 +55,7 @@ class Node(db.Model):
 		if not self.exist():
 			mkdir(self._folder());
 			main_file = File(filename=path.join(self._folder(), 'node.cpp'), node = self)
-			main_file.code = render_template()
+			main_file.code = render_template('code/default.cpp')
 			dotbot_file = File(filename=path.join(self._folder(), '.dotbot_ros'), node = self)
 			db.session.add(main_file,dotbot_file)
 			db.session.commit()
