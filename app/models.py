@@ -50,6 +50,7 @@ class Node(db.Model):
 	name = db.Column(db.String(64), unique=True, index=True)
 	files = db.relationship('File', backref='node')
 	created = db.Column(db.DateTime, default=datetime.utcnow)
+	catkin_initialized = db.Column(db.Boolean, default=False)
 
 	def create(self):
 		if not self.exist():
