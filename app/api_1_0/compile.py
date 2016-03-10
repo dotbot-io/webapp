@@ -8,7 +8,7 @@ from flask import Response, request
 comp = Compiler();
 
 
-@api.route('/catkin'):
+@api.route('/catkin')
 def catkin():
     comp.catkin()
     return Response(comp.read_buid_proc(id), mimetype='text/event-stream')
