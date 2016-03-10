@@ -40,7 +40,8 @@ class Compiler:
         if (Compiler.wall == True):
             return False
         Compiler.wall = True
-        self._bproc = subprocess.Popen(['catkin_make', 'src_' + str(id) + '_' + current_app.config["DOTBOT_PACKAGE_NAME"]+'_node'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
+        #self._bproc = subprocess.Popen(['catkin_make', 'src_' + str(id) + '_' + current_app.config["DOTBOT_PACKAGE_NAME"]+'_node'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
+        self._bproc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
         return True
 
     def catkin(self):
