@@ -1,5 +1,5 @@
 from . import api
-from ..models import Sketch
+from ..models import Node
 from compiler import Compiler
 
 from flask_json import JsonError, json_response
@@ -8,28 +8,18 @@ from flask import Response, request
 comp = Compiler();
 
 
-@api.route('/monitor')
-def start_monitor():
-    req = request.args.get('monitor', 'stop', type=str)
-    if req == 'start':
-        baud = request.args.get('baud', 9600, type=int)
-        if comp.monitor_open(baud=baud):
-            return Response(comp.read_monitor(), mimetype='text/event-stream')
-        raise JsonError(error='resource busy')
-    elif req == 'stop':
-        comp.monitor_close();
-        return json_response( response='ok')
-    else:
-        raise JsonError(error='bad request')
+@api.route('/catkin')
+def catkin():
+    comp.catkin()
+    return Response(comp.read_buid_proc(id), mimetype='text/event-stream')
 
-@api.route('/compile/<int:id>/')
-def compile(id):
-    s = Sketch.query.get_or_404(id)
-    comp.save(s.code)
-    comp.compile()
-    return Response(comp.read_proc(), mimetype='text/event-stream')
+@api.route('/nodes/<int:id>/build')
+def build(id):
+    n = Node.query.get_or_404(id)
+    comp.compile(n)
+    return Response(comp.read_buid_proc(id), mimetype='text/event-stream')
 
-@api.route('/run/')
-def run():
-    comp.run()
-    return Response(comp.read_proc(), mimetype='text/event-stream')
+@api.route('/nodes/<int:id>/run')
+def run_node(id):
+    comp.run(id)
+    return Response(comp.read_run_proc(id), mimetype='text/event-stream')

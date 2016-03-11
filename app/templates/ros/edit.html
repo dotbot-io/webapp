@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block page_content %}
+{% extends "base.html" %}
+
+{% block page_content %}
 
 <script type=text/javascript src=" {{url_for('static', filename='js/vendor/jquery-1.10.2.min.js') }}">
 </script>
@@ -30,45 +32,29 @@
 </style>
 
 
-<!-- Modal -->
-<div class="modal fade" id="shellModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="shellLabel"> Shell </h4>
-      </div>
-        <div class="modal-body" id="my_console" style="height:600px">
-        </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 <div class="container" id="prog-tools">
   <div class="panel panel-default">
     <div class="panel-heading">
       <div class="panel-heading clearfix">
-        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">{{ sketch.title }}</h4>
+        <h4 class="panel-title pull-left" style="padding-top: 7.5px;">{{ file.title }}</h4>
         <div class="btn-group pull-right">
           <div class="btn-toolbar" role="toolbar" aria-label="...">
             <div class="btn-group" role="group" aria-label="...">
-              <button onclick="compile( {{ sketch.id }} );" class="btn btn-default">
+              <button onclick="compile( {{ file.node_id }} );" class="btn btn-default">
                 <span class="glyphicon glyphicon-record" aria-hidden="true"></span> Build
               </button>
-              <button id="run-btn" class="btn btn-default" onclick="run( {{ sketch.id }} );" class="btn btn-default navbar-btn">
+              <button id="run-btn" class="btn btn-default" onclick="run( {{ file.id }} );" class="btn btn-default navbar-btn">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run
               </button>
-              <button onclick="save( {{ sketch.id }} )" class="btn btn-default">
+              <button onclick="save( {{ file.id }} )" class="btn btn-default">
                 <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
               </button>
               <button onclick="shell()" class="btn btn-default">
                 <span class="glyphicon glyphicon-sound-stereo" aria-hidden="true"></span> Shell
               </button>
-              <a class="btn btn-default" href="/api/v1.0/sketches/download/{{ sketch.id }}">
+              <a class="btn btn-default" href="/api/v1.0/filees/download/{{ file.id }}">
                 <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Download
               </a>
             </div>
@@ -77,7 +63,7 @@
       </div>
     </div>
     <div class="panel-body" style="padding:0">
-        <textarea name='prog' id='code'>{{ sketch.code }}</textarea>
+        <textarea name='prog' id='code'>{{ file.code }}</textarea>
     </div>
   </div>
 </div>

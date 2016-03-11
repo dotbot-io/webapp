@@ -14,42 +14,43 @@
 </script>
 
 <script type=text/javascript>
-  var deleteSketch = function(id) {
+  var delete_file = function(id) {
     $.ajax({
-      url: '/api/v1.0/sketches/' + id + '/',
+      url: '/api/v1.0/files/' + id + '/',
       type: 'DELETE',
       success: function(result) {
         console.log("deleted");
-        load_sketches();
+        load_files({{node_id}});
       }
     });
   }
 
   var deleteAll = function() {
     $.ajax({
-      url: '/api/v1.0/sketches/',
+      url: '/api/v1.0/nodes/',
       type: 'DELETE',
       success: function(result) {
         console.log("deleted");
-        load_sketches();
+          load_files({{node_id}});
       }
     });
   }
 
-  var addSketch = function() {
-    var sketch_to_send = {
-      title: $("#newTitle").val(),
+  var add_file = function() {
+    var file_to_send = {
+      filename: $("#newTitle").val(),
+      code: ''
     }
-    console.log(sketch_to_send)
+    console.log(file_to_send)
 
     $.ajax({
-      url: '/api/v1.0/sketches/',
+      url: '/api/v1.0/nodes/{{ node_id }}/files',
       type: 'POST',
       contentType: "application/json",
-      data: JSON.stringify(sketch_to_send),
+      data: JSON.stringify(file_to_send),
       success: function(result) {
         console.log("added");
-        load_sketches();
+        load_files({{node_id}} );
       },
       error: function(e) {
         my_alert(e);
@@ -57,37 +58,36 @@
     });
   }
 
-  var show_sketches = function(sketches) {
-    for (i = 0; i < sketches.length; i += 1) {
-      s = sketches[i]
+  var show_files = function(files) {
+    for (i = 0; i < files.length; i += 1) {
+      f = files[i]
 
-      $('#sketchesList').append(
+      $('#nodesList').append(
         '<tr>' +
-        '<td>' + s.id + '</td>' +
-        '<td>' + s.title + '</td>' +
-        '<td>' + moment(s.last_edit).fromNow() + '</td>' +
+        '<td>' + f.id + '</td>' +
+        '<td>' + f.filename + '</td>' +
+        '<td>' + moment(f.last_edit).fromNow() + '</td>' +
         '<td>' +
         '<div class="btn-group" role="group">' +
-        '<a class="btn btn-xs btn-primary " href="/edit/' + s.id + '" >Edit</a>' +
-        '<a class="btn btn-xs btn-success " href="/api/v1.0/sketches/download/' + s.id + '" >Donwload</a>' +
-        '<button class="btn btn-xs btn-danger " type="button" onclick="deleteSketch(' + s.id + ')">Delete</button> </div></td>' +
+        '<a class="btn btn-xs btn-primary " href="/file/edit/' + f.id + '" >Edit</a>' +
+        '<button class="btn btn-xs btn-danger" onclick = "delete_file('+f.id+')" >Delete</a>' +
         '</tr>'
       );
     }
   }
 
-  var load_sketches = function() {
-    $('#sketchesList').empty();
+  var load_files = function(id) {
+    $('#nodesList').empty();
     $.ajax({
-      url: '/api/v1.0/sketches/',
+      url: '/api/v1.0/nodes/' + id + '/files',
       type: 'GET',
       success: function(data) {
-        show_sketches(data["sketches"])
+        show_files(data["files"])
       }
     });
   }
 
-  $(load_sketches());
+  $(load_files( {{node_id}} ));
 </script>
 
 <div class="container container-padding-bottom">
@@ -103,7 +103,7 @@
       <thead>
         <tr>
           <th>id</th>
-          <th>Title</th>
+          <th>Name</th>
           <th>Last Edit</th>
           <th>Actions</th>
           <!--td><button type="button" onclick="deleteAll()">Delete All</button-->
@@ -114,7 +114,7 @@
                 <td><button type="button" onclick="addSketch()">Add</button> </td>
               </tr-->
       </thead>
-      <tbody id="sketchesList">
+      <tbody id="nodesList">
       </tbody>
     </table>
   </div>
@@ -126,7 +126,7 @@
       <div class="input-group">
         <input type="text" class="form-control" placeholder="New Title" id="newTitle">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button" onclick="addSketch()">New</button>
+          <button class="btn btn-default" type="button" onclick="add_file()">New</button>
         </span>
       </div>
       <!-- /input-group -->

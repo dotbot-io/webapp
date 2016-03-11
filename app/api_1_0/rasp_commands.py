@@ -1,5 +1,5 @@
 from . import api
-from ..models import Sketch
+from ..models import Node
 from .. import db
 from flask import jsonify, request, flash, make_response, render_template, current_app
 from flask_json import JsonError, json_response, as_json
@@ -11,7 +11,7 @@ import subprocess
 
 @api.route('/bin/poweroff')
 def poweroff():
-	proc = subprocess.Popen(['sudo', 'poweroff'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	proc = subprocess.Popen(['sudo', 'poweroff', 'now'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	return json_response( response='ok')
 
 @api.route('/bin/reboot')
