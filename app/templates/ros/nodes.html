@@ -45,8 +45,8 @@
       title: $("#newTitle").val(),
       language: 'cpp'
     }
-    console.log($("#python").val())
-    if ($("#python").val() === "on") {
+    console.log($("#python").is(':checked'))
+    if ($("#python").is(':checked')) {
       sketch_to_send.language = 'py';
     }
     console.log(sketch_to_send)

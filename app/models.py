@@ -15,6 +15,8 @@ class File(db.Model):
 	node_id = db.Column(db.Integer, db.ForeignKey('nodes.id'))
 	is_executable = db.Column(db.Boolean, default=False)
 
+	def language(self):
+		return self.filename.split('.')[-1]
 
 	def __repr__(self):
 		return '<File %r>' % self.filename

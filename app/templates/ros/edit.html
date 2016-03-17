@@ -42,9 +42,11 @@
         <div class="btn-group pull-right">
           <div class="btn-toolbar" role="toolbar" aria-label="...">
             <div class="btn-group" role="group" aria-label="...">
+              {% if file.language() == "cpp" %}
               <button onclick="compile( {{ file.node_id }} );" class="btn btn-default">
                 <span class="glyphicon glyphicon-record" aria-hidden="true"></span> Build
               </button>
+              {% endif %}
               <button id="run-btn" class="btn btn-default" onclick="run( {{ file.node_id }} );" class="btn btn-default navbar-btn">
                 <span class="glyphicon glyphicon-play" aria-hidden="true"></span> Run
               </button>
