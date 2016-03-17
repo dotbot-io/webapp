@@ -43,6 +43,11 @@
   var addSketch = function() {
     var sketch_to_send = {
       title: $("#newTitle").val(),
+      language: 'cpp'
+    }
+    console.log($("#python").val())
+    if ($("#python").val() === "on") {
+      sketch_to_send.language = 'py';
     }
     console.log(sketch_to_send)
 
@@ -71,11 +76,18 @@
         '<tr>' +
         '<td>' + s.id + '</td>' +
         '<td>' + s.name + '</td>' +
+        '<td>' + s.language + '</td>' +
         '<td>' + moment(s.created).fromNow() + '</td>' +
         '<td>' +
         '<div class="btn-group" role="group">' +
         '<a class="btn btn-xs btn-primary " href="/nodes/' + s.id + '" >Open</a>' +
-        '<button class="btn btn-xs btn-info " onclick= "compile(' + s.id + ')" >Build</a>' +
+        function (lan) {
+          if (lan === 'cpp') {
+            return '<button class="btn btn-xs btn-info " onclick= "compile(' + s.id + ')" >Build</a>';
+          } else {
+            return '';
+          }
+        }(s.language) +
         '<button class="btn btn-xs btn-success " onclick= "run(' + s.id + ')" >Run</a>' +
         '</tr>'
       );
@@ -112,6 +124,7 @@
         <tr>
           <th>id</th>
           <th>Title</th>
+          <th>Language</th>
           <th>Created</th>
           <th>Actions</th>
           <!--td><button type="button" onclick="deleteAll()">Delete All</button-->
@@ -133,6 +146,10 @@
     <div class="col-lg-12">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="New Title" id="newTitle">
+        <span class="input-group-addon">
+          <input type="checkbox" aria-label="python" id="python">
+          Python
+        </span>
         <span class="input-group-btn">
           <button class="btn btn-default" type="button" onclick="addSketch()">New</button>
         </span>

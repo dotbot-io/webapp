@@ -26,9 +26,9 @@ class Compiler:
             self.load_env()
         return self._env
 
-    def run(self, id):
-        if not self.is_runnning(id):
-            self._pnodes[id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], 'src_' + str(id) + '_' + current_app.config["DOTBOT_PACKAGE_NAME"]+'_node'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
+    def run(self, node):
+        if not self.is_runnning(node.id):
+            self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
 
     def is_runnning(self, id):
         if id in self._pnodes:

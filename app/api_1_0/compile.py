@@ -21,5 +21,6 @@ def build(id):
 
 @api.route('/nodes/<int:id>/run')
 def run_node(id):
-    comp.run(id)
+    n = Node.query.get_or_404(id)
+    comp.run(n)
     return Response(comp.read_run_proc(id), mimetype='text/event-stream')
