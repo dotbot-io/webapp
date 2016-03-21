@@ -33,6 +33,11 @@ def rosnodes():
 def rostopics():
     return render_template('ros/rostopics.html', current_time=datetime.utcnow())
 
+@ros.route('/rosconsole')
+def rosconsole():
+    return render_template('ros/rosconsole.html', current_time=datetime.utcnow())
+
+
 @ros.route('/test')
 def test_page():
     return render_template('ros/test.html')

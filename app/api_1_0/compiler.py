@@ -30,6 +30,11 @@ class Compiler:
         if not self.is_runnning(node.id):
             self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
 
+    def kill_node(self, id):
+        if self.is_runnning(id):
+            self._pnodes[id].terminate()
+
+
     def is_runnning(self, id):
         if id in self._pnodes:
             if self._pnodes[id].poll() is None:

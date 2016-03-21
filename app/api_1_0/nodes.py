@@ -56,6 +56,8 @@ def delete_node(id):
 		return json_response(response='ok')
 	raise JsonError(error='node not in database')
 
+
+
 @api.route('/nodes/', methods=['DELETE'])
 @as_json
 def delete_all_nodes():

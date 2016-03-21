@@ -67,11 +67,11 @@ class Node(db.Model):
 			if self.language == 'cpp':
 				main_file = File(filename=path.join(self._folder(), 'node.' + self.language), node = self)
 				main_file.code = render_template('code/default.cpp')
+				dotbot_file = File(filename=path.join(self._folder(), '.dotbot_ros'), node = self)
 			else:
 				main_file = File(filename=path.join(self._folder(), 'node_' + str(self.id) + '.' + self.language), node=self, is_executable=True)
 				main_file.code = render_template('code/default.py')
-
-			dotbot_file = File(filename=path.join(self._folder(), '.dotbot_ros'), node = self)
+				dotbot_file = File(filename=path.join(self._folder(), '__init__.py'), node = self)
 			db.session.add(main_file,dotbot_file)
 			db.session.commit()
 			main_file.save()

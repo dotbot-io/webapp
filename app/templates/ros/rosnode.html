@@ -18,7 +18,7 @@ var deleteNode = function(node) {
     type: 'DELETE',
     success: function(result) {
       console.log("deleted");
-      load_nodes();    
+      load_nodes();
     }
   });
 }
@@ -45,7 +45,7 @@ var show_nodes = function(nodes) {
 
 var load_nodes = function () {
   $('#nodesList').html("");
-  setTimeout( function () { 
+  setTimeout( function () {
   $('#sketchesList').empty();
   $.ajax({
     url: '/api/v1.0/rosnodes/',
@@ -78,10 +78,9 @@ $(load_nodes());
          Run <strong>roscore!</strong>
         </button>
       </p>
-        
     </div>
 
-   
+
     <div class="panel panel-default">
       <!-- Default panel contents -->
       <div class="panel-heading">Node List</div>
