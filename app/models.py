@@ -88,7 +88,7 @@ class Node(db.Model):
 
 	def executable(self):
 		if self.language == 'cpp':
-			return 'src_' + str(id) + '_' + current_app.config["DOTBOT_PACKAGE_NAME"]+'_node'
+			return 'src_' + str(self.id) + '_' + current_app.config["DOTBOT_PACKAGE_NAME"]+'_node'
 		else:
 			return 'node_' + str(self.id) + '.' + self.language
 
