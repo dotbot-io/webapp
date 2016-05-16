@@ -19,7 +19,7 @@ class Compiler:
         env_info =  pipe.stdout.read()
         self._env = json.loads(env_info)
         self._env["PWD"] = current_app.config["CATKIN_FOLDER"]
-        self._env["ROS_NAMESPACE"] = g.DOTBOT_NAME
+        self._env["ROS_NAMESPACE"] = "/"+g.DOTBOT_NAME
         print self._env
 
     def env(self):
