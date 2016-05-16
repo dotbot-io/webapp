@@ -5,9 +5,9 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     BOOTSTRAP_SERVE_LOCAL = True
-    CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/web/robotic_platform/robotoma_app_ws'
-    ROBOTOMA_PACKAGE_NAME = os.environ.get('ROBOTOMA_PACKAGE_NAME') or 'robotoma_app'
-    ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/jade/setup.bash'
+    CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/dotbot_ws/ros/'
+    DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
+    ROS_ENVS = os.environ.get('ROS_ENVS') or '/Users/ludus/develop/setup/source_dotbot_ros.sh'
     @staticmethod
     def init_app(app):
         pass

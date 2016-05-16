@@ -19,7 +19,7 @@ $(function() {
 var save = function(id) {
   var sketch = { code: editor.getDoc().getValue() };
     $.ajax({
-    url: '/api/v1.0/sketches/' + id + '/',
+    url: '/api/v1.0/files/' + id + '/',
     type: 'PUT',
     contentType: "application/json",
     data: JSON.stringify(sketch),
@@ -56,7 +56,6 @@ var Console = function() {
 
 
 var compile =  function(id) {
-  save(id)
   shell();
   $("#shellLabel").html("Compiling...")
   my_console.empty();
@@ -66,7 +65,7 @@ var compile =  function(id) {
 
   id = id || 1
   $("#devprogress").css('width', valeur+'%').attr('aria-valuenow', valeur);
-  var url =  '/api/v1.0/compile/'+ id + '/';
+  var url =  '/api/v1.0/nodes/'+ id + '/build';
   var evtSrc = new EventSource(url);
 
   /*
@@ -107,11 +106,13 @@ var kill = function(ed) {
 }
 
 var run =  function(id) {
+  shell();
   my_console.empty();
   var valeur = 0;
   id = id || 1
-  var url =  '/api/v1.0/run/';
+  var url =  '/api/v1.0/nodes/'+ id + '/run';
   var evtSrc = new EventSource(url);
+  $("#shellLabel").html("Node Running..." )
 
   /*
     To close the connection if error occurs:
