@@ -38,7 +38,7 @@ var show_nodes = function(nodes) {
       '</tr>'
     );
   }
-}
+};
 
 var load_nodes = function () {
     all_nodes = [];
@@ -47,7 +47,7 @@ var load_nodes = function () {
       (function(ns) {all_nodes = ns;})(tt);
       show_nodes(all_nodes);
     });
-}
+};
 
 var deleteNode = function(node) {
   $.ajax({

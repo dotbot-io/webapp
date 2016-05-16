@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
+{% block scripts %}
 
-{% block page_content %}
-
+{{ super() }}
 
 <script type=text/javascript src=" {{url_for('static', filename='js/vendor/jquery-1.10.2.min.js') }}">
 </script>
@@ -15,14 +15,13 @@
 </script>
 <script type=text/javascript src=" {{url_for('static', filename='js/rosnode.js') }}">
 </script>
+{% endblock %}
+
+
+{% block page_content %}
 
 
 
-
-
-<script type=text/javascript>
-
-</script>
   <div class="container">
     <div class="page-header">
       <h1>Ros Console</h1>
