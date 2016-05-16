@@ -1,5 +1,5 @@
 var ros = new ROSLIB.Ros({
-  url : 'ws://'+ window.location.hostname +':9090'
+  url : 'ws://'+ master_url +':9090'
 });
 
 
