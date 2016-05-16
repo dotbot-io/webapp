@@ -1,5 +1,5 @@
 var ros = new ROSLIB.Ros({
-  url : 'ws://'+ window.location.hostname +':9090'
+  url : 'ws://'+ master_url +':9090'
 });
 
 
@@ -20,7 +20,7 @@ ros.on('connection', function() {
 
 var cmdJoy = new ROSLIB.Topic({
   ros : ros,
-  name : '/dotbot/joy',
+  name : '/' + dotbot_name + '/joy',
   messageType : 'geometry_msgs/Vector3'
 });
 

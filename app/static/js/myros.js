@@ -1,7 +1,7 @@
 console.log(document.URL);
 
 var ros = new ROSLIB.Ros({
-  url : 'ws://'+ document.URL +':9090'
+  url : 'ws://'+ master_url +':9090'
 });
 
 

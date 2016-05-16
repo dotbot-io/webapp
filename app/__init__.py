@@ -4,7 +4,7 @@ from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_json import FlaskJSON
 from config import config
-
+from flask import g
 
 
 bootstrap = Bootstrap()
@@ -35,6 +35,8 @@ def create_app(config_name):
     from .api_1_0 import api as api_1_0_bp
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
+
+
     def get_version():
         import subprocess, os
         path = os.path.realpath(__file__)
@@ -45,8 +47,19 @@ def create_app(config_name):
         retval = p.wait()
         return ver
 
+    def get_ros():
+        import json, subprocess
+        source = 'source ' + app.config["ROS_ENVS"]
+        dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
+        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
+        env_info =  pipe.stdout.read()
+        print env_info
+        env = json.loads(env_info)
+        return env["ROS_MASTER_URI"].split('//')[1].split(":")[0], env["DOTBOT_NAME"]
+
     @app.context_processor
     def utility_processor():
+        g.MASTER_URL, g.DOTBOT_NAME = get_ros()
     	return dict(version=get_version())
 
     return app

@@ -4,6 +4,14 @@
 </script>
 
 <script type="text/javascript">
+	var master_url = "{{ g.MASTER_URL }}";
+	var dotbot_name = "{{ g.DOTBOT_NAME }}"
+	console.log("master url: ", master_url);
+	console.log("dotbot name: ", dotbot_name);
+</script>
+
+
+<script type="text/javascript">
 	moment.locale("en");
 
 	function flask_moment_render(elem) {

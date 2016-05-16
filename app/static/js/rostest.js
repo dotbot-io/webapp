@@ -20,7 +20,7 @@ ros.on('connection', function() {
 
 var cmdLed = new ROSLIB.Topic({
   ros : ros,
-  name : '/dotbot/led',
+  name : '/' + dotbot_name + '/led',
   messageType : 'dotbot_msgs/Led'
 });
 
@@ -29,7 +29,7 @@ var led = new ROSLIB.Message({
 
 var cmdMotor = new ROSLIB.Topic({
   ros : ros,
-  name : '/dotbot/speed',
+  name : '/' + dotbot_name + '/speed',
   messageType : 'dotbot_msgs/Speed'
 });
 
@@ -41,14 +41,14 @@ var check_click = function(element, num) {
   console.log("Led" + num + " ", element.checked);
   led["led" + num] = element.checked;
   cmdLed.publish(led);
-}
+};
 
 var read_value = function(v) {
   if (isNaN(v)) return 0;
   else if (v > 255) return 255;
   else if (v < -255) return -255;
-  return v
-}
+  return v;
+};
 
 var setMotors = function(element, num) {
   console.log("Motor 1", Number($("#Motor1").val()));
@@ -60,4 +60,4 @@ var setMotors = function(element, num) {
   });
   console.log(speed);
   cmdMotor.publish(speed);
-}
+};
