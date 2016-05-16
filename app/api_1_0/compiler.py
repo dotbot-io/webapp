@@ -1,7 +1,7 @@
 import subprocess
 import tempfile
 import os
-from flask import current_app
+from flask import current_app, g
 
 class Compiler:
     wall = False
@@ -19,6 +19,7 @@ class Compiler:
         env_info =  pipe.stdout.read()
         self._env = json.loads(env_info)
         self._env["PWD"] = current_app.config["CATKIN_FOLDER"]
+        self._env["ROS_NAMESPACE"] = g.DOTBOT_NAME
         print self._env
 
     def env(self):
