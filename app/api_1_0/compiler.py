@@ -19,7 +19,7 @@ class Compiler:
         env_info =  pipe.stdout.read()
         self._env = json.loads(env_info)
         self._env["PWD"] = current_app.config["CATKIN_FOLDER"]
-        self._env["ROS_NAMESPACE"] = "/"+g.DOTBOT_NAME
+        self._env["ROS_NAMESPACE"] = current_app.config["DOTBOT_NAME"]
         print self._env
 
     def env(self):
@@ -29,7 +29,7 @@ class Compiler:
 
     def run(self, node):
         if not self.is_runnning(node.id):
-            self._pnodes[node.id] = subprocess.Popen(['ROS_NAMESPACE='+g.DOTBOT_NAME, 'rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
+            self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
 
     def kill_node(self, id):
         if self.is_runnning(id):
