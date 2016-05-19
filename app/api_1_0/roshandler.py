@@ -61,5 +61,5 @@ def rosnode():
 @as_json
 def rostopic_kill(node):
     print node
-	subprocess.Popen(['rosnode', 'kill', node], env=comp.env())
-	return json_response( response='ok')
+    subprocess.Popen(['rosnode', 'kill', node], env=comp.env())
+    return json_response( response='ok')
