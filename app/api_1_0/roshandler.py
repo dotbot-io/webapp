@@ -25,9 +25,9 @@ def roscore_is_running():
 @api.route("/ros/rosconfig", methods=["PUT"])
 def post_rosconfig():
     print request.json
-	of = open("/opt/virtualenvs/ros/project/config.bash", "w")
-	of.write(render_template("code/config.bash", namespace = request.json["namespace"], master=request.json["master"], ip=request.json["ip"]))
-	of.close()
+    of = open("/opt/virtualenvs/ros/project/config.bash", "w")
+    of.write(render_template("code/config.bash", namespace = request.json["namespace"], master=request.json["master"], ip=request.json["ip"]))
+    of.close()
     return "ok"
 
 

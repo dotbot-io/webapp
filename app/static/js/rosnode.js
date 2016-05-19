@@ -57,7 +57,7 @@ var deleteNode = function(node) {
       console.log("deleted");
     }
   });
-}
+};
 
 $(document).ready(function () {
   load_nodes();
