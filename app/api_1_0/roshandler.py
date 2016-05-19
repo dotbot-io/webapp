@@ -57,7 +57,7 @@ def rosnode():
         return jsonify(nodes=nodes)
     raise JsonError(description='roscore not running')
 
-@api.route('/rosnode/<node>/', methods=['DELETE'])
+@api.route('/rosnode/<path:node>/', methods=['DELETE'])
 @as_json
 def rostopic_kill(node):
 	subprocess.Popen(['rosnode', 'kill', node], env=comp.env())
