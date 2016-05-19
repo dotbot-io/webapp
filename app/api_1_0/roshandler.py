@@ -60,6 +60,6 @@ def rosnode():
 @api.route('/rosnode/<path:node>/', methods=['DELETE'])
 @as_json
 def rostopic_kill(node):
-    print node
+    print comp.env()
     subprocess.Popen(['rosnode', 'kill', node], env=comp.env())
     return json_response( response='ok')
