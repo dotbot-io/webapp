@@ -42,6 +42,11 @@ def rosconsole():
 def test_page():
     return render_template('ros/test.html')
 
+@ros.route('/play')
+def play_page():
+    return render_template('ros/moves.html')
+
+
 @ros.route('/joy')
 def joy_page():
     return render_template('ros/joystick.html')

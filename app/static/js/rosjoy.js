@@ -26,11 +26,6 @@ var cmdJoy = new ROSLIB.Topic({
 
 
 
-
-
-
-
-
 console.log("touchscreen is", VirtualJoystick.touchScreenAvailable() ? "available" : "not available");
 
 var joystick	= new VirtualJoystick({
@@ -45,4 +40,4 @@ setInterval(function(){
     y: joystick.deltaY()
   });
   cmdJoy.publish(joy);
-}, 1/30 * 1000);
+}, 1/10 * 1000);
