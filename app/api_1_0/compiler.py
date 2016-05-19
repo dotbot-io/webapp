@@ -25,7 +25,8 @@ class Compiler:
     def env(self):
         if self._env is None:
             self.load_env()
-        return self._env
+        import copy
+        return copy.copy(self._env)
 
     def run(self, node):
         if not self.is_runnning(node.id):
