@@ -16,11 +16,11 @@
         <div class="panel-body">
           <div class="input-group">
             <span class="input-group-addon" id="basic-addon3">ROS MASTER URI</span>
-            <input type="text" class="form-control" id="master_text">
+            <input type="text" class="form-control" id="master_text" value="{{ g.MASTER_URL }}">
             <span class="input-group-addon" id="basic-addon3">ROS IP</span>
-            <input type="text" class="form-control" id="ip_text">
+            <input type="text" class="form-control" id="ip_text" value="{{ g.ROS_IP }}">
             <span class="input-group-addon" id="basic-addon3">Name Space</span>
-            <input type="text" class="form-control" id="namespace_text">
+            <input type="text" class="form-control" id="namespace_text" value="{{ g.DOTBOT_NAME }}">
             <span class="input-group-btn">
               <button class="btn btn-default" id="host-btn" type="submit" onclick = "set_ros()">Submit</button>
             </span>

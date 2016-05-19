@@ -55,13 +55,14 @@ def create_app(config_name):
         env_info =  pipe.stdout.read()
         print env_info
         env = json.loads(env_info)
-        return env["ROS_MASTER_URI"].split('//')[1].split(":")[0] or 'localhost', env["DOTBOT_NAME"] or 'dotbot'
+        return env["ROS_MASTER_URI"].split('//')[1].split(":")[0] or 'localhost', env["DOTBOT_NAME"] or 'dotbot', env["ROS_IP"] or 'localhost'
 
-    app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"] = get_ros()
+    app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
     @app.context_processor
     def utility_processor():
         g.MASTER_URL = app.config["ROS_MASTER_URI"]
         g.DOTBOT_NAME = app.config["DOTBOT_NAME"]
+        g.ROS_IP = app.config["ROS_IP"]
     	return dict(version=get_version())
 
     return app
