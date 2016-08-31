@@ -7,7 +7,7 @@ class Config:
     BOOTSTRAP_SERVE_LOCAL = True
     CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/dotbot_ws/ros/'
     DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
-    ROS_ENVS = os.environ.get('ROS_ENVS') or '/Users/ludus/develop/setup/source_dotbot_ros.sh'
+    ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/indigo/setup.bash'
     @staticmethod
     def init_app(app):
         pass

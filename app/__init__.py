@@ -32,6 +32,9 @@ def create_app(config_name):
     from .ros import ros as ros_bp
     app.register_blueprint(ros_bp)
 
+    from .gui import gui as gui_bp
+    app.register_blueprint(gui_bp, url_prefix="/gui")
+
     from .api_1_0 import api as api_1_0_bp
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
@@ -60,7 +63,7 @@ def create_app(config_name):
     app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
     @app.context_processor
     def utility_processor():
-        g.MASTER_URL = app.config["ROS_MASTER_URI"]
+        g.MASTER_URL = 'localhost'
         g.DOTBOT_NAME = app.config["DOTBOT_NAME"]
         g.ROS_IP = app.config["ROS_IP"]
     	return dict(version=get_version())
