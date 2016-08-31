@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+
+{% block scripts %}
+{{super()}}
+
+<script type=text/javascript src=" {{url_for('static', filename='js/vendor/jquery-1.10.2.min.js') }}">
+</script>
+<script type=text/javascript src=" {{ url_for('static', filename='js/vendor/eventemitter2.min.js') }}">
+</script>
+<script type=text/javascript src=" {{ url_for('static', filename='js/vendor/roslib.min.js') }}">
+</script>
+<script type=text/javascript src=" {{url_for('static', filename='js/gui/moves.js') }}">
+</script>
+
+{% endblock %}
+
+
+{% block page_content %}
+
+
+
+
+<div class="container" style="max-width:500px">
+  <div class="page-header">
+    <h1> Simpleefresw </h1>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-4">
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4">
+        <button class="btn btn-default" style="display: block; width: 100%;" id="btnMove1" onclick="send_move(1)" type="button">Avanti</button>
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4">
+    </div><!-- /.col-lg-6 -->
+  </div>
+  <div class="row">
+    <div class="col-xs-4">
+        <button class="btn btn-default" style="display: block; width: 100%;" id="btnMove2" onclick="send_move(1)" type="button">Sinistra</button>
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4">
+        <button class="btn btn-default" style="display: block; width: 100%;" id="btnMove3" onclick="send_move(1)" type="button">Stop</button>
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4">
+        <button class="btn btn-default" style="display: block; width: 100%;" id="btnMove4" onclick="send_move(1)" type="button">Destra</button>
+    </div><!-- /.col-lg-6 -->
+  </div>
+  <div class="row">
+    <div class="col-xs-4">
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4">
+        <button class="btn btn-default" style="display: block; width: 100%;" id="btnMove5" onclick="send_move(1)" type="button">Dietro</button>
+    </div><!-- /.col-lg-6 -->
+    <div class="col-xs-4">
+    </div><!-- /.col-lg-6 -->
+
+  </div><!-- /.row -->
+</div>
+
+
+
+
+{% endblock %}
