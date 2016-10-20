@@ -38,6 +38,9 @@ def create_app(config_name):
     from .api_1_0 import api as api_1_0_bp
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
+    from .api_2_0 import api2 as api_2_0_bp
+    app.register_blueprint(api_2_0_bp, url_prefix='/api/v2.0')
+
 
 
     def get_version():
@@ -60,7 +63,7 @@ def create_app(config_name):
         env = json.loads(env_info)
         return env["ROS_MASTER_URI"].split('//')[1].split(":")[0] or 'localhost', env["DOTBOT_NAME"] or 'dotbot', env["ROS_IP"] or 'localhost'
 
-    app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
+    app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = "", "", ""
     @app.context_processor
     def utility_processor():
         g.MASTER_URL = app.config["ROS_MASTER_URI"]
