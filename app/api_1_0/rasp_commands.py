@@ -11,21 +11,21 @@ import subprocess
 
 @api.route('/bin/poweroff')
 def poweroff():
-	proc = subprocess.Popen(['sudo', 'poweroff', 'now'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	proc = subprocess.Popen(['poweroff', 'now'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	return json_response( response='ok')
 
 @api.route('/bin/reboot')
 def reboot():
-	proc = subprocess.Popen(['sudo', 'reboot'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	proc = subprocess.Popen(['reboot'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 	return json_response( response='ok')
 
-@api.route('/bin/update')
-def update():
-	proc = subprocess.Popen(['update_robotoma'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-	return json_response( response='ok')
 
 @api.route('/bin/hostname/<hostname>')
 def set_hostname(hostname):
-	proc = subprocess.Popen(['/usr/local/bin/change_hostname', hostname], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-	proc.wait()
-	return json_response( response='ok')
+	# proc = subprocess.Popen(['/usr/local/bin/change_hostname', hostname], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+	# proc.wait()
+	avahi_conf = render_template('code/avahi-deamon.conf', hostname=hostname)
+	with open('/etc/avahi/avahi-daemon.conf', 'w') as f:
+    	f.write(avahi_conf)
+
+	return json_response( response='ok', newfile=avahi_conf)
