@@ -32,6 +32,9 @@ def create_app(config_name):
     from .ros import ros as ros_bp
     app.register_blueprint(ros_bp)
 
+    from .gui import gui as gui_bp
+    app.register_blueprint(gui_bp, url_prefix="/gui")
+
     from .api_1_0 import api as api_1_0_bp
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
