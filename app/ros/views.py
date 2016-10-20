@@ -46,6 +46,10 @@ def test_page():
 def play_page():
     return render_template('ros/moves.html')
 
+@ros.route('/play2')
+def play2_page():
+    return render_template('ros/moves2.html')
+
 
 @ros.route('/joy')
 def joy_page():
