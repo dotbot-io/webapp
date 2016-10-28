@@ -638,7 +638,7 @@
 									case 'ahead':
 									case 'straight':
 									case 'go':
-                  case 'avant':
+                  case 'avanti':
                   case 'dietro':
                   case 'accendi':
                   case 'spegni':
@@ -656,6 +656,9 @@
 											commandFound = false;
 										}
 										break testCandidate;
+                  case 'spegni':
+                    say('non dire parolacce!')
+                  	break testCandidate;
 									case "reverse":
 									case "back":
 							        	if (words.length == 1) {
