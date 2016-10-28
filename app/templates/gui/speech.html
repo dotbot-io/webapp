@@ -521,6 +521,8 @@
             } else {
 
 	            recognition = new webkitSpeechRecognition();
+              recognition.lang = "it-IT";
+
                 recognition.continuous = false;
                 recognition.interimResults = false;
 				recognition.maxAlternatives = 10;
