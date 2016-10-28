@@ -632,12 +632,16 @@
 								}
 								commandFound = true;
 								testCandidate: switch (words [0]){
-							        case 'forward':
+							    case 'forward':
 									case 'foreword':
 									case 'keep going':
 									case 'ahead':
 									case 'straight':
 									case 'go':
+                  case 'avant':
+                  case 'dietro':
+                  case 'accendi':
+                  case 'spegni':
                       sendCommand(words[0]);
 							        	if (words.length == 1) {
 											x = linearSpeed;
