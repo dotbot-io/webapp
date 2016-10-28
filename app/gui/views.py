@@ -10,5 +10,5 @@ def play_page():
     return render_template('gui/simple_ctrl.html')
 
 @gui.route('/speech')
-def play_page():
+def speech():
     return render_template('gui/speech.html')
