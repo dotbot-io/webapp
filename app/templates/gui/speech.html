@@ -525,7 +525,7 @@
 
                 recognition.continuous = false;
                 recognition.interimResults = false;
-				recognition.maxAlternatives = 10;
+				        recognition.maxAlternatives = 10;
                 showInfo('info_start');
 
                 recognition.onstart = function() {
@@ -568,7 +568,8 @@
                 }
 
                 recognition.onresult = function(event) {
-		    		console.log('recognition.onresult');
+		    		          console.log('recognition.onresult');
+                      console.log(event);
 
 					function getDistance (quantity, what) {
 						var howmany;
