@@ -442,7 +442,7 @@
 				}
 				var u = new SpeechSynthesisUtterance();
 				u.text = words;
-				u.lang = 'en-US';
+				u.lang = 'it-IT';
 				u.rate = 1.1;
 				u.default = true;
 				u.localService = true;
@@ -873,7 +873,7 @@
 				startRecognition ();
 			}
 			if (recognition || 0) {
-		        recognition.lang = "en-US";
+		        recognition.lang = "it-IT";
 		        recognition.start();
 		        noRestartReco = false;
 		        //final_span.innerHTML = '';
