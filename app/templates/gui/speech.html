@@ -904,7 +904,7 @@
  //       }
 
 
-    funciton sendCommand(cmd) {
+    function sendCommand(cmd) {
       var cmdSpeech = new ROSLIB.Topic({
 				ros : ros,
 				name : 'speech/cmd',
@@ -913,9 +913,7 @@
 
       var stringa = new ROSLIB.Message({
         data: cmd
-      })
-
-
+      });
       cmdSpeech.publish(stringa);
     }
 
