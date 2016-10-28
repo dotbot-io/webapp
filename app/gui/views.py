@@ -8,3 +8,7 @@ from . import gui
 @gui.route('/simple_ctrl')
 def play_page():
     return render_template('gui/simple_ctrl.html')
+
+@gui.route('/speech')
+def play_page():
+    return render_template('gui/speech.html')
