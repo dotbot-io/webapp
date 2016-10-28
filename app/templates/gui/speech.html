@@ -635,6 +635,7 @@
 									case 'ahead':
 									case 'straight':
 									case 'go':
+                      sendCommand(words[0])
 							        	if (words.length == 1) {
 											x = linearSpeed;
 											sendTwistMessage (x, z);
@@ -901,6 +902,22 @@
  //           copy_info.style.display = 'none';
  //           email_info.style.display = 'none';
  //       }
+
+
+    funciton sendCommand(cmd) {
+      var cmdSpeech = new ROSLIB.Topic({
+				ros : ros,
+				name : 'speech/cmd',
+				messageType : 'std_msgs/String'
+			});
+
+      var stringa = new ROSLIB.Message({
+        data: cmd
+      })
+
+
+      cmdSpeech.publish(stringa);
+    }
 
 		function sendTwistMessage(xMove, zMove) {
 			console.log ("sending twist x:" + xMove + " z:" + zMove);
