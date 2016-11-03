@@ -3,7 +3,7 @@ from ..models import Node
 from compiler import Compiler
 
 from flask_json import JsonError, json_response
-from flask import Response, request, g, jsonify
+from flask import Response, request, g, jsonify, current_app
 from flask_json import JsonError, json_response, as_json
 
 comp = Compiler();
@@ -54,4 +54,4 @@ def api_kill_node(id):
 @api.route('/discovery')
 def test():
     #return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
-    return jsonify({'name': 'name', 'test': 'test'})
+    return jsonify({'name': current_app.config["ROS_MASTER_URI"], 'test': 'test'})
