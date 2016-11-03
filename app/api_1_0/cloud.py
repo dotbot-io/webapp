@@ -23,4 +23,4 @@ rest_api.add_resource(Robot, '/rest/discovery')
 @api.route('/discovery')
 def test():
     #return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
-    return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'test': current_app.config["ROS_IP"]})
+    return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"]})
