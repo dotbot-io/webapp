@@ -10,7 +10,7 @@ cors = CORS(api, resources={r"/": {"origins": "*"}})
 
 @api.route('/test')
 def test():
-    return {'name': g.DOTBOT_NAME, 'master': g.MASTER_URL, 'ip': g.ROS_IP}
+    return dict(name='dadd')
 
 @api.route("/discovery")
 @as_json
