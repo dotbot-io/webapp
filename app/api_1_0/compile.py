@@ -5,6 +5,7 @@ from compiler import Compiler
 from flask_json import JsonError, json_response
 from flask import Response, request, g, jsonify, current_app
 from flask_json import JsonError, json_response, as_json
+from flask_cors import CORS, cross_origin
 
 comp = Compiler();
 
@@ -21,6 +22,7 @@ def build(id):
 	return Response(comp.read_buid_proc(id), mimetype='text/event-stream')
 
 @api.route('/nodes/<int:id>/run')
+@cross_origin(origin="*", headers=["content-type", "autorization"])
 def run_node(id):
 	n = Node.query.get_or_404(id)
 	comp.run(n)
