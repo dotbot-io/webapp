@@ -50,11 +50,3 @@ def api_kill_node(id):
 		comp.kill_node(n.id)
 		return json_response(running=comp.is_runnning(n.id))
 	raise JsonError(error='node not in database')
-
-
-
-@api.route('/discovery')
-@as_json
-def test():
-	print g.MASTER_URL
-	return dict(name='g.DOTBOT_NAME', master='g.MASTER_URL', ip='g.ROS_IP')
