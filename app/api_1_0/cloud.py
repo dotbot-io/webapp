@@ -8,7 +8,9 @@ from . import api
 
 cors = CORS(api, resources={r"/": {"origins": "*"}})
 
-
+@api.route('/test')
+def test():
+    return 'test'
 
 @api.route("/discovery")
 def discovery():
