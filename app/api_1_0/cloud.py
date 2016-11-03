@@ -9,6 +9,5 @@ from . import api
 cors = CORS(api, resources={r"/": {"origins": "*"}})
 
 @api.route('/discovery')
-@as_json
 def test():
-    return dict('name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
+    return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
