@@ -23,7 +23,7 @@ class RobotSketch(Resource):
     decorators = [cross_origin()]
 
     def put(self):
-        node_id = 29
+        node_id = 27
         file_id = 53
     	f = File.query.get_or_404(file_id)
         parser = reqparse.RequestParser()
@@ -41,7 +41,7 @@ class RobotSketch(Resource):
     	return jsonify({'response': 'ok'})
 
     def get(self):
-        node_id = 29
+        node_id = 27
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
 
