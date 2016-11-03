@@ -5,7 +5,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_json import FlaskJSON
 from config import config
 from flask import g
-
+from flask_cors import CORS
 
 bootstrap = Bootstrap()
 moment = Moment()
