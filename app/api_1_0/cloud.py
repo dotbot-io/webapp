@@ -1,4 +1,4 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, g
 from flask_restful import Resource, Api
 
 from flask_cors import CORS, cross_origin
