@@ -20,7 +20,7 @@ class Robot(Resource):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"]})
 
 class RobotSketch(Resource):
-    decorators = [cross_origin(origin="*", headers=["content-type", "autorization"])]
+    decorators = [cross_origin()]
 
     def put(self):
         node_id = 29
