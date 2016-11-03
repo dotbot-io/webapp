@@ -8,14 +8,14 @@ from . import api
 
 cors = CORS(api, resources={r"/": {"origins": "*"}})
 
-# @api.route('/rosnode/<path:node>/', methods=['DELETE'])
-# @as_json
-# def rostopic_kill(node):
-    # env = comp.env()
-    # env["ROS_NAMESPACE"] = '';
-    # print env
-    # subprocess.Popen(['rosnode', 'kill', node], env=env)
-    # return json_response( response='ok')
+rest_api = Api(api)
+
+class Robot(Resource):
+    def get(self):
+        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'test': current_app.config["ROS_IP"]})
+
+rest_api.add_resource(Robot, '/rest/discovery')
+
 
 @api.route('/discovery')
 def test():
