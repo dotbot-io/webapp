@@ -7,12 +7,3 @@ from flask_json import as_json
 from . import api
 
 cors = CORS(api, resources={r"/": {"origins": "*"}})
-
-@api.route('/test')
-def test():
-    return dict(name='dadd')
-
-@api.route("/discovery")
-@as_json
-def discovery():
-    return 'test'

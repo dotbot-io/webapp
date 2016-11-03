@@ -50,3 +50,15 @@ def api_kill_node(id):
 		comp.kill_node(n.id)
 		return json_response(running=comp.is_runnning(n.id))
 	raise JsonError(error='node not in database')
+
+
+
+@api.route('/test')
+@as_json
+def test():
+    return dict(name='dadd')
+
+@api.route("/discovery")
+@as_json
+def discovery():
+    return 'test'
