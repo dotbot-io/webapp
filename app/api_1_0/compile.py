@@ -57,4 +57,4 @@ def api_kill_node(id):
 @as_json
 def test():
 	print g.MASTER_URL
-    return dict(name='g.DOTBOT_NAME', master='g.MASTER_URL', ip='g.ROS_IP')
+	return dict(name='g.DOTBOT_NAME', master='g.MASTER_URL', ip='g.ROS_IP')
