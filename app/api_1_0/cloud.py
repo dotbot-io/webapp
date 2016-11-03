@@ -12,15 +12,9 @@ rest_api = Api(api)
 class Robot(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"])]
     def get(self):
-        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'test': current_app.config["ROS_IP"]})
+        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"]})
 
 
 
 
-rest_api.add_resource(Robot, '/rest/discovery')
-
-
-@api.route('/discovery')
-def test():
-    #return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
-    return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"]})
+rest_api.add_resource(Robot, '/discovery')
