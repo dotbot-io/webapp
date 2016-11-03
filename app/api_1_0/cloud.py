@@ -9,6 +9,7 @@ from . import api
 from compile import comp
 from ..models import Node, File
 from datetime import datetime
+from .. import db
 
 
 rest_api = Api(api)
