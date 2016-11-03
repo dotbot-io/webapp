@@ -1,4 +1,4 @@
-from flask import Flask, current_app, g, jsonify
+from flask import Flask, current_app, g, jsonify, Response, request
 from flask_restful import Resource, Api
 
 from flask_cors import CORS, cross_origin
@@ -19,6 +19,7 @@ class Robot(Resource):
 
 class RobotSketch(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"])]
+
     def put(self):
         node_id = 29
         file_id = 53
