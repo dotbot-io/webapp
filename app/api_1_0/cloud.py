@@ -16,8 +16,26 @@ class Robot(Resource):
     def get(self):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"]})
 
+class RobotSketch(Resource):
+    decorators = [cross_origin(origin="*", headers=["content-type", "autorization"])]
+    def get(self):
+        node_id = 29
+        file_id = 53
+    	f = File.query.get_or_404(file_id)
+    	f.code = request.json.get('code', f.code)
+    	f.last_edit = datetime.utcnow()
+    	db.session.add(f)
+    	f.save()
+
+        parser = reqparse.RequestParser()
+        parser.add_argument('code')
+        args = parser.parse_args()
+    	n = Node.query.get_or_404(node_id)
+    	comp.run(n)
+    	return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
 
 
 
 rest_api.add_resource(Robot, '/discovery')
+rest_api.add_resource(RobotSketch, '/run/sketch')
