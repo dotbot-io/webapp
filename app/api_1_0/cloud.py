@@ -15,4 +15,4 @@ class Robot(Resource):
     def get(self):
         return jsonify({'name': g.DOTBOT_NAME, 'master': g.MASTER_URL, 'ip': g.ROS_IP})
 
-api.add_resource(Robot, '/discovery')
+restapi.add_resource(Robot, '/discovery')
