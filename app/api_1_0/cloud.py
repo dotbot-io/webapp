@@ -15,7 +15,7 @@ from .. import db
 rest_api = Api(api)
 
 class Robot(Resource):
-    decorators = [cross_origin(origin="*", headers=["content-type", "autorization"])]
+    decorators = [cross_origin(origin="*", headers=["content-type", "autorization"], methods=['GET', 'PUT'])]
     def get(self):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"]})
 
