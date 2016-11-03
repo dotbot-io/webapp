@@ -41,6 +41,7 @@ class RobotSketch(Resource):
     	return jsonify({'response': 'ok'})
 
     def get(self):
+        node_id = 29
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
 
