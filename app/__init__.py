@@ -11,7 +11,7 @@ bootstrap = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
 json = FlaskJSON()
-cors = CORS(resources={r"/": {"origins": "*"}})
+cors = CORS()
 
 
 def create_app(config_name):
