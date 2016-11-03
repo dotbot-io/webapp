@@ -24,15 +24,16 @@ class RobotSketch(Resource):
         node_id = 29
         file_id = 53
     	f = File.query.get_or_404(file_id)
-    	f.code = request.json.get('code', '')
+        parser = reqparse.RequestParser()
+        parser.add_argument('code')
+        args = parser.parse_args()
+
+    	f.code = args['code']
     	f.last_edit = datetime.utcnow()
     	db.session.add(f)
     	f.save()
         db.session.commit()
 
-        parser = reqparse.RequestParser()
-        parser.add_argument('code')
-        args = parser.parse_args()
     	n = Node.query.get_or_404(node_id)
     	comp.run(n)
     	return jsonify({'response', 'ok'})
