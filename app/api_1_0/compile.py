@@ -54,4 +54,4 @@ def api_kill_node(id):
 @api.route('/discovery')
 def test():
     #return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
-    return jsonify({'name': current_app.config["ROS_MASTER_URI"], 'test': 'test'})
+    return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'test': current_app.config["ROS_IP"]})
