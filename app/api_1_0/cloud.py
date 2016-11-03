@@ -21,4 +21,3 @@ class Robot(Resource):
 
 
 rest_api.add_resource(Robot, '/discovery')
-rest_api.add_resource(RobotSketch, '/run/sketch')
