@@ -77,8 +77,3 @@ def put_sketch(id):
 	s.last_edit = datetime.utcnow()
 	db.session.add(s)
 	return json_response(response='ok')
-
-@api.route('/discovery')
-def test():
-    #return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
-    return {'name': 'name', 'test': 'test'}

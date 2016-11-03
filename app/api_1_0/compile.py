@@ -50,3 +50,8 @@ def api_kill_node(id):
 		comp.kill_node(n.id)
 		return json_response(running=comp.is_runnning(n.id))
 	raise JsonError(error='node not in database')
+
+@api.route('/discovery')
+def test():
+    #return {'name': current_app.config["ROS_MASTER_URI"], 'master': current_app.config["MASTER_URL"], 'ip': current_app.config["ROS_IP"]}
+    return {'name': 'name', 'test': 'test'}
