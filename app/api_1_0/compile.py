@@ -3,7 +3,7 @@ from ..models import Node
 from compiler import Compiler
 
 from flask_json import JsonError, json_response
-from flask import Response, request
+from flask import Response, request, g
 from flask_json import JsonError, json_response, as_json
 
 comp = Compiler();
@@ -53,12 +53,7 @@ def api_kill_node(id):
 
 
 
-@api.route('/test')
+@api.route('/discovery')
 @as_json
 def test():
-    return dict(name='dadd')
-
-@api.route("/discovery")
-@as_json
-def discovery():
-    return 'test'
+    return dict(name=g.DOTBOT_NAME, master=g.MASTER_URL, ip=g.ROS_IP)
