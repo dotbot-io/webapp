@@ -7,6 +7,7 @@ from flask_restful import Api, Resource, reqparse
 
 from . import api
 from compile import comp
+from ..models import Node, File
 
 
 rest_api = Api(api)
@@ -18,11 +19,11 @@ class Robot(Resource):
 
 class RobotSketch(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"])]
-    def get(self):
+    def put(self):
         node_id = 29
         file_id = 53
     	f = File.query.get_or_404(file_id)
-    	f.code = request.json.get('code', f.code)
+    	f.code = request.json.get('code', '')
     	f.last_edit = datetime.utcnow()
     	db.session.add(f)
     	f.save()
@@ -32,7 +33,10 @@ class RobotSketch(Resource):
         args = parser.parse_args()
     	n = Node.query.get_or_404(node_id)
     	comp.run(n)
-    	return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
+    	return {'response', 'ok'}
+
+    def get(self):
+        return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
 
 
