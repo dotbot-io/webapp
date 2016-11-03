@@ -13,6 +13,9 @@ rest_api = Api(api)
 class Robot(Resource):
     def get(self):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'test': current_app.config["ROS_IP"]})
+        
+
+
 
 rest_api.add_resource(Robot, '/rest/discovery')
 
