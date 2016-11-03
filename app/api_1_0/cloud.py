@@ -27,6 +27,7 @@ class RobotSketch(Resource):
     	f.last_edit = datetime.utcnow()
     	db.session.add(f)
     	f.save()
+        db.session.commit()
 
         parser = reqparse.RequestParser()
         parser.add_argument('code')
