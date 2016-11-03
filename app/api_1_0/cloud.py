@@ -38,7 +38,7 @@ class RobotSketch(Resource):
 
     	n = Node.query.get_or_404(node_id)
     	comp.run(n)
-    	return jsonify({'response', 'ok'})
+    	return jsonify({'response': 'ok'})
 
     def get(self):
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
