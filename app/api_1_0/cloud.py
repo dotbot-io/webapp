@@ -14,10 +14,17 @@ from .. import db
 
 rest_api = Api(api)
 
+def getMAC(interface):
+    try:
+        str = open('/sys/class/net/' + interface + '/address').read()
+    except:
+        str = "00:00:00:00:00:00"
+    return str[0:17]
+
 class Robot(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"], methods=['GET', 'PUT'])]
     def get(self):
-        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":"cd:cd:sd:dw:ds", "model":"dotbot-ros b0.5"})
+        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
 
 class RobotSketch(Resource):
     decorators = [cross_origin()]
