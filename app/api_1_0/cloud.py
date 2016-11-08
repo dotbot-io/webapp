@@ -1,4 +1,4 @@
-from flask import Flask, current_app, g, jsonify, Response, request
+from flask import Flask, current_app, g, jsonify, Response, request,json_response, as_json
 from flask_restful import Resource, Api
 
 from flask_cors import CORS, cross_origin
@@ -10,6 +10,7 @@ from compile import comp
 from ..models import Node, File
 from datetime import datetime
 from .. import db
+import subprocess
 
 
 rest_api = Api(api)
@@ -56,3 +57,14 @@ class RobotSketch(Resource):
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
+
+
+@api.route('/rosnode/<path:node>/kill', methods=['DELETE'])
+@as_json
+@cross_origin()
+def rostopic_kill(node):
+    env = comp.env()
+    env["ROS_NAMESPACE"] = '';
+    print env
+    subprocess.Popen(['rosnode', 'kill', node], env=env)
+    return json_response( response='ok')
