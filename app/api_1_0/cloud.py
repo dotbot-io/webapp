@@ -62,7 +62,7 @@ rest_api.add_resource(RobotSketch, '/run/sketch')
 @api.route('/rosnode/<path:node>/kill', methods=['DELETE'])
 @as_json
 @cross_origin()
-def rostopic_kill(node):
+def rosnode_kill(node):
     env = comp.env()
     env["ROS_NAMESPACE"] = '';
     print env
