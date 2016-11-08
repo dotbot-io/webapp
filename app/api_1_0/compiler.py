@@ -20,7 +20,6 @@ class Compiler:
         self._env = json.loads(env_info)
         self._env["PWD"] = current_app.config["CATKIN_FOLDER"]
         self._env["ROS_NAMESPACE"] = current_app.config["DOTBOT_NAME"]
-        print self._env
 
     def env(self):
         if self._env is None:

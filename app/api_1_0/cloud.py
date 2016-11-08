@@ -49,6 +49,7 @@ class RobotSketch(Resource):
     	return jsonify({'response': 'ok'})
 
     def get(self):
+        print 'getting streaming'
         node_id = 27
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
@@ -58,7 +59,6 @@ class RobotSketch(Resource):
         args = parser.parse_args()
         env = comp.env()
         env["ROS_NAMESPACE"] = '';
-        print env
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
     	return jsonify({'response': 'ok'})
 
@@ -66,14 +66,3 @@ class RobotSketch(Resource):
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
-
-
-@api.route('/rosnode_kill/<path:node>', methods=['DELETE'])
-@as_json
-@cross_origin(origin="*", headers=["content-type", "autorization"], methods=['GET', 'PUT', 'DELETE'])
-def rosnode_kill(node):
-    env = comp.env()
-    env["ROS_NAMESPACE"] = '';
-    print env
-    subprocess.Popen(['rosnode', 'kill', node], env=env)
-    return json_response( response='ok')
