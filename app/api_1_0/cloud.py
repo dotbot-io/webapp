@@ -52,6 +52,15 @@ class RobotSketch(Resource):
         node_id = 27
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('node')
+        args = parser.parse_args()
+        env = comp.env()
+        env["ROS_NAMESPACE"] = '';
+        print env
+        subprocess.Popen(['rosnode', 'kill', args.node], env=env)
+    	return jsonify({'response': 'ok'})
 
 
 
