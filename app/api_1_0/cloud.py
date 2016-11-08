@@ -59,7 +59,7 @@ rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
 
 
-@api.route('/rosnode/<path:node>/kill', methods=['DELETE'])
+@api.route('/rosnode_kill/<path:node>', methods=['DELETE'])
 @as_json
 @cross_origin()
 def rosnode_kill(node):
