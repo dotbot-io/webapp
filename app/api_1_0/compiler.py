@@ -59,6 +59,8 @@ class Compiler:
         Compiler.wall = True
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
+    # these two methods are for streaming the bash content to the program, but this has problems working with fask_CORS so need to fix it
+        
     def read_run_proc(self, id):
         while True:
             line = self._pnodes[id].stdout.readline()
