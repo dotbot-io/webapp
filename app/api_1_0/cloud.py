@@ -68,9 +68,8 @@ class WifiConnection(Resource):
         cells = Cell.all('wlan0')
         wifi_info = []
         for c in cells:
-            w_info = {'name': c.ssid, 'encryption': c.encryption_type, 'encrypted': c.encrypted}
-            if w_info != "\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00":
-                wifi_info.append(w_info)
+            if c.ssid is not in [wc.name for wc in wifi_info] + ["\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00"]
+                wifi_info.append({'name': c.ssid, 'encryption': c.encryption_type, 'encrypted': c.encrypted})
         return jsonify({'wifi': wifi_info})
 
 
