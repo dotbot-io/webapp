@@ -63,16 +63,21 @@ class RobotSketch(Resource):
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
     	return jsonify({'response': 'ok'})
 
-class WifiConnection(Resource):
+class WifiCells(Resource):
     def get(self):
         cells = Cell.all('wlan0')
         wifi_info = []
         for c in cells:
             if c.ssid not in [wc['name'] for wc in wifi_info] + ["\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00"]:
                 wifi_info.append({'name': c.ssid, 'encryption': c.encryption_type, 'encrypted': c.encrypted})
-        return jsonify({'wifi': wifi_info})
+        return jsonify({'cells': wifi_info})
+
+class WifiSchemes(Resource):
+    def get(self):
+        schemes = Scheme.all()
+        return jsonify({'schemes': [s.__dict__ for s in schemes]})
 
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
-rest_api.add_resource(WifiConnection, '/wifi')
+rest_api.add_resource(WifiCells, '/wifi/cells')
