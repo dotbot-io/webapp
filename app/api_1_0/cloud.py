@@ -113,7 +113,7 @@ class WifiScheme(Resource):
                 scheme.activate()
             except ConnectionError:
                 return  jsonify({"error": "Failed to connect to %s." % scheme.name})
-            return jsonify({'scheme': scheme.__dict__}, "connected": True)
+            return jsonify({'scheme': scheme.__dict__, "connected": True})
         else:
             return jsonify({'scheme': scheme.__dict__})
 
