@@ -98,6 +98,15 @@ class WifiSchemes(Resource):
             newscheme.activate()
             return jsonify({'response': "ok"})
 
+class WifiSchemes(Resource):
+
+    def get(self, name):
+        s = [s for s in Scheme.all() if s.name == args['name']]
+        if len(s) > 0:
+            return jsonify({'scheme': s[0].__dict__})
+        else:
+            return jsonify({'response': "non found"})
+
 
 
 
@@ -106,3 +115,4 @@ rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
+rest_api.add_resource(WifiSchemes, '/wifi/schemes/<name>')
