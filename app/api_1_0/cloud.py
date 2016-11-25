@@ -147,5 +147,19 @@ rest_api.add_resource(WifiSchemes, '/wifi/schemes')
 rest_api.add_resource(WifiScheme, '/wifi/schemes/<name>')
 
 
-from wifi.cli import autoconnect_command as autoconnect
+def autoconnect():
+    ssids = [cell.ssid for cell in Cell.all('wlan0')]
+    for scheme in Scheme.all():
+        # TODO: make it easier to get the SSID off of a scheme.
+        ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
+        if ssid in ssids:
+            sys.stderr.write('Connecting to "%s".\n' % ssid)
+            try:
+                scheme.activate()
+            except ConnectionError:
+                assert False, "Failed to connect to %s." % scheme.name
+            break
+    else:
+        assert False, "Couldn't find any schemes that are currently available."
+
 autoconnect()
