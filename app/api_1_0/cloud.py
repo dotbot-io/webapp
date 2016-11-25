@@ -77,7 +77,7 @@ class WifiSchemes(Resource):
         schemes = Scheme.all()
         return jsonify({'schemes': [s.__dict__ for s in schemes]})
 
-    def put(self):
+    def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('name')
         parser.add_argument('password')
@@ -110,22 +110,22 @@ class WifiScheme(Resource):
         scheme = s[0]
         return jsonify({'scheme': scheme.__dict__})
 
-        def post(self, name):
-            parser = reqparse.RequestParser()
-            parser.add_argument('action')
-            args = parser.parse_args()
-            s = [s for s in Scheme.all() if s.name == name]
-            if len(s) == 0:
-                return jsonify({'response': "non found"})
-            scheme = s[0]
-            if args["action"] == 'connect':
-                try:
-                    scheme.activate()
-                except ConnectionError:
-                    return  jsonify({"error": "Failed to connect to %s." % scheme.name})
-                return jsonify({'scheme': scheme.__dict__, "connected": True})
-            else:
-                return jsonify({'scheme': scheme.__dict__})
+    def put(self, name):
+        parser = reqparse.RequestParser()
+        parser.add_argument('action')
+        args = parser.parse_args()
+        s = [s for s in Scheme.all() if s.name == name]
+        if len(s) == 0:
+            return jsonify({'response': "non found"})
+        scheme = s[0]
+        if args["action"] == 'connect':
+            try:
+                scheme.activate()
+            except ConnectionError:
+                return  jsonify({"error": "Failed to connect to %s." % scheme.name})
+            return jsonify({'scheme': scheme.__dict__, "connected": True})
+        else:
+            return jsonify({'scheme': scheme.__dict__})
 
     def delete(self, name):
         s = [s for s in Scheme.all() if s.name == name]
