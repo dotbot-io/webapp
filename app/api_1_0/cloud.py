@@ -13,6 +13,7 @@ from .. import db
 import subprocess
 
 from wifi import Cell, Scheme
+from wifi.exceptions import ConnectionError
 
 rest_api = Api(api)
 
