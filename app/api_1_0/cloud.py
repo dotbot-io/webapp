@@ -101,14 +101,14 @@ class WifiSchemes(Resource):
 class WifiScheme(Resource):
 
     def get(self, name):
-        s = [s for s in Scheme.all() if s.name == args['name']]
+        s = [s for s in Scheme.all() if s.name == name]
         if len(s) > 0:
             return jsonify({'scheme': s[0].__dict__})
         else:
             return jsonify({'response': "non found"})
 
     def delete(self, name):
-        s = [s for s in Scheme.all() if s.name == args['name']]
+        s = [s for s in Scheme.all() if s.name == name]
         if len(s) > 0:
             s[0].delete()
             return jsonify({'response': "ok"})
