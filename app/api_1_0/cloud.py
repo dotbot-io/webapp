@@ -153,7 +153,7 @@ def autoconnect():
         # TODO: make it easier to get the SSID off of a scheme.
         ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
         if ssid in ssids:
-            sys.stderr.write('Connecting to "%s".\n' % ssid)
+            print 'Connecting to "%s".' % ssid
             try:
                 scheme.activate()
             except ConnectionError:
