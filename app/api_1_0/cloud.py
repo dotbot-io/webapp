@@ -28,6 +28,8 @@ class Robot(Resource):
     def get(self):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
 
+
+
 class RobotSketch(Resource):
     decorators = [cross_origin()]
 
@@ -143,3 +145,7 @@ rest_api.add_resource(RobotSketch, '/run/sketch')
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
 rest_api.add_resource(WifiScheme, '/wifi/schemes/<name>')
+
+
+from wifi.cli import autoconnect_command as autoconnect
+autoconnect()
