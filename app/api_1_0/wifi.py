@@ -17,12 +17,12 @@ from wifi import Cell, Scheme
 
 
 
-def WifiConnectio(Resource):
+def WifiConnection(Resource):
     def get(self):
         cells = Cell.all('wlan0')
         return jsonify([{'name': c.ssid} for c in cells])
 
-
+'''
 def getMAC(interface):
     try:
         str = open('/sys/class/net/' + interface + '/address').read()
@@ -70,7 +70,6 @@ class RobotSketch(Resource):
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
     	return jsonify({'response': 'ok'})
 
+'''
 
-
-rest_api.add_resource(Robot, '/discovery')
-rest_api.add_resource(RobotSketch, '/run/sketch')
+rest_api.add_resource(WifiConnection, '/wifi')
