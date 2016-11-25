@@ -77,6 +77,26 @@ class WifiSchemes(Resource):
         schemes = Scheme.all()
         return jsonify({'schemes': [s.__dict__ for s in schemes]})
 
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name')
+        parser.add_argument('password')
+        args = parser.parse_args()
+
+        schemes = [s for s in Scheme.all()]
+        cells = Cell.all('wlan0')
+
+        newscheme = None
+        for cell in cells:
+            if cell.ssid == args['name']:
+                newscheme = Scheme.for_cell('wlan0', 'scheme-'+str(len(schemes)), cell, args['password'])
+                break
+        newscheme.save()
+        newscheme.activate()
+
+
+
+
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
