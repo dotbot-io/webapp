@@ -66,7 +66,7 @@ class RobotSketch(Resource):
 class WifiConnection(Resource):
     def get(self):
         cells = Cell.all('wlan0')
-        return jsonify({'wifi': [{'name': c.ssid, 'encryption': c.encryption_type, 'encrypted', c.encrypted} for c in cells]})
+        return jsonify({'wifi': [{'name': c.ssid, 'encryption': c.encryption_type, 'encrypted': c.encrypted} for c in cells]})
 
 
 rest_api.add_resource(Robot, '/discovery')
