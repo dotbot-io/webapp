@@ -12,6 +12,7 @@ from datetime import datetime
 from .. import db
 import subprocess
 
+from wifi import Cell, Scheme
 
 rest_api = Api(api)
 
@@ -62,7 +63,12 @@ class RobotSketch(Resource):
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
     	return jsonify({'response': 'ok'})
 
+def WifiConnection(Resource):
+    def get(self):
+        cells = Cell.all('wlan0')
+        return jsonify([{'name': c.ssid} for c in cells])
 
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
+rest_api.add_resource(WifiConnection, '/wifi')
