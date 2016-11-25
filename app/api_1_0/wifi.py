@@ -12,7 +12,7 @@ from datetime import datetime
 from .. import db
 import subprocess
 
-from .wifi import rest_api
+from .cloud import rest_api
 from wifi import Cell, Scheme
 
 
