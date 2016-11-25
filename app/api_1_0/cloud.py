@@ -81,3 +81,4 @@ class WifiSchemes(Resource):
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
 rest_api.add_resource(WifiCells, '/wifi/cells')
+rest_api.add_resource(WifiSchemes, '/wifi/schemes')
