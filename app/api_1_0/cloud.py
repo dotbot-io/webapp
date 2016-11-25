@@ -91,8 +91,12 @@ class WifiSchemes(Resource):
             if cell.ssid == args['name']:
                 newscheme = Scheme.for_cell('wlan0', 'scheme-'+str(len(schemes)), cell, args['password'])
                 break
-        newscheme.save()
-        newscheme.activate()
+        if newscheme is None:
+            return jsonify({'response': "network non found"})
+        else:
+            newscheme.save()
+            newscheme.activate()
+            return jsonify({'response': "ok"})
 
 
 
