@@ -63,7 +63,7 @@ class RobotSketch(Resource):
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
     	return jsonify({'response': 'ok'})
 
-def WifiConnection(Resource):
+class WifiConnection(Resource):
     def get(self):
         cells = Cell.all('wlan0')
         return jsonify([{'name': c.ssid} for c in cells])
