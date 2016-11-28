@@ -29,14 +29,12 @@ class Robot(Resource):
     def get(self):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
 
-
-
 class RobotSketch(Resource):
     decorators = [cross_origin()]
 
     def put(self):
-        node_id = 27
-        file_id = 53
+        node_id = 1
+        file_id = 1
     	f = File.query.get_or_404(file_id)
         parser = reqparse.RequestParser()
         parser.add_argument('code')
@@ -54,7 +52,7 @@ class RobotSketch(Resource):
 
     def get(self):
         print 'getting streaming'
-        node_id = 27
+        node_id = 1
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
     def delete(self):
