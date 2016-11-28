@@ -12,7 +12,7 @@
     $.ajax({
         url: "/api/v1.0/wifi/schemes/" + scheme.name,
         type: "PUT",
-        data: {'action', 'connect'},
+        data: {'action': 'connect'},
         success: function(data) {
           alert('connected');
         },
