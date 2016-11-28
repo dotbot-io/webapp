@@ -131,7 +131,7 @@ class WifiScheme(Resource):
             return jsonify({'scheme': scheme.__dict__, "connected": True})
         elif args["action"] == "configure":
             cells = [cell for cell in Cell.all("wlan0") if cell.ssid == args['ssid']]
-            if cells.len == 0:
+            if len(cells) == 0:
                 return jsonify({'error': 'wifi not found'})
             sname = scheme.name
             scheme.delete()
