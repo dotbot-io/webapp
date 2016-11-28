@@ -4,6 +4,8 @@
 
 {% block scripts %}
 
+{{ super() }}
+
 <script type="text/javascript">
   function addCellToRow(cell) {
     tabBody=document.getElementsByTagName("tbody").item(0);
@@ -27,7 +29,7 @@
     });
   }
 
-  detCells();
+  getCells();
 </script>
 
 {% endblock %}
