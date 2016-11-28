@@ -29,10 +29,10 @@
     textnode1=document.createTextNode(scheme.name);
     console.log(scheme);
     if (scheme.options["wpa-ssid"] === undefined) {
-      button = document.createElement("button")
+      button = document.createElement("a")
       button.setAttribute("type","button")
       button.setAttribute("class","btn btn-xs btn-default")
-      button.onclick = function() {configureScheme(scheme);};
+      button.setAttribute("href","schemes/"+ scheme.name + "/configure")
       button.appendChild(document.createTextNode("configure"));
       cell3.appendChild(button);
     } else {
@@ -84,7 +84,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Type</th>
+      <th>Network</th>
       <th>Actions</th>
     </tr>
   </thead>
