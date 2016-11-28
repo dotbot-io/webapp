@@ -67,12 +67,13 @@ class Compiler:
             if not b: # EOF
                 pipe.close()
                 if buf:
-                    yield b''.join(buf)
-                return
+                    yield "data: " +  b''.join(buf) + "\n\n"
+                yield "data: STOP\n\n"
+                break
             elif not b.isspace(): # grow token
                 buf.append(b)
             elif buf: # full token read
-                yield b''.join(buf)
+                yield "data: " + b''.join(buf)  + "\n\n"
                 buf = []
         Compiler.wall = False
 
