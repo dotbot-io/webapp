@@ -22,7 +22,7 @@
   }
 
   function getCells() {
-    $.getJSON("api/v1.0/wifi/cells", function(data) {
+    $.getJSON("/api/v1.0/wifi/cells", function(data) {
       for (cell in data.cells) {
         addCellToRow(cell);
       }
