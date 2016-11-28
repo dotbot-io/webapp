@@ -137,7 +137,7 @@ class WifiScheme(Resource):
 
             for s in Scheme.all():
                 s.delete()
-                if s.name = sname:
+                if s.name == sname:
                     s = Scheme.for_cell('wlan0', sname, cells[0], args['password'])
                 s.save()
             return jsonify({'scheme': scheme.__dict__})
@@ -145,7 +145,7 @@ class WifiScheme(Resource):
             sname = scheme.name
             for s in Scheme.all():
                 s.delete()
-                if s.name = sname:
+                if s.name == sname:
                     s = Scheme('wlan0', sname)
                 s.save()
 
