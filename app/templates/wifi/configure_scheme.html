@@ -22,6 +22,8 @@
     textnode1=document.createTextNode(cell.name);
     textnode2=document.createTextNode(cell.encryption);
     button = document.createElement("button");
+    button.appendChild(document.createTextNode("select"));
+
     button.onclick = function() {chooseCell(cell);};
     cell1.appendChild(textnode1);
     cell2.appendChild(textnode2);
@@ -57,6 +59,7 @@
     <tr>
       <th>Name</th>
       <th>Type</th>
+      <th>action</th>
     </tr>
   </thead>
   <tbody>
