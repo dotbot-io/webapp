@@ -7,6 +7,6 @@ from . import wifi_views
 def wifi_scan():
     return render_template('wifi/scan.html')
 
-@wifi_views.route("/scan")
+@wifi_views.route("/schemes")
 def schemes():
     return render_template('wifi/schemes.html')
