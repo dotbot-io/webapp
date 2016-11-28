@@ -63,6 +63,7 @@ class Compiler:
     def read_run_proc(self, id):
         while self._pnodes[id].poll() is None:
             (line, err) = self._pnodes[id].communicate()
+            self._pnodes[id].stdout.flush()
             if line != '':
                 line = line.rstrip()
                 yield "data: (>>>)" + line + "\n\n"
