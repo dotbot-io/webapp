@@ -130,7 +130,7 @@ class WifiScheme(Resource):
                 return  jsonify({"error": "Failed to connect to %s." % scheme.name})
             return jsonify({'scheme': scheme.__dict__, "connected": True})
         elif args["action"] == "configure":
-            cells = [cell for cell in Cell.all("wlan0") if cell.name == args['ssid']]
+            cells = [cell for cell in Cell.all("wlan0") if cell.ssid == args['ssid']]
             if cells.len == 0:
                 return jsonify({'error': 'wifi not found'})
             sname = scheme.name
