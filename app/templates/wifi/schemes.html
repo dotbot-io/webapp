@@ -20,6 +20,19 @@
     });
   }
 
+  function cleanScheme(scheme) {
+    $.ajax({
+      url: "/api/v1.0/wifi/schemes/" + scheme.name,
+      type: "PUT",
+      data: {'action': 'clean'},
+      success: function(data) {
+        console.log(data)
+        alert('done');
+      },
+    });
+  }
+
+
   function addScemeToRow(scheme) {
     tabBody=document.getElementsByTagName("tbody").item(0);
     row=document.createElement("tr");
@@ -46,7 +59,7 @@
       button_del = document.createElement("button")
       button_del.setAttribute("type","button")
       button_del.setAttribute("class","btn btn-xs btn-danger")
-      button_del.onclick = function() {connectToScheme(scheme);};
+      button_del.onclick = function() {cleanScheme(scheme);};
       button_del.appendChild(document.createTextNode("clean"));
 
       cell2.appendChild(textnode2);

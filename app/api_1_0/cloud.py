@@ -134,10 +134,21 @@ class WifiScheme(Resource):
             if len(cells) == 0:
                 return jsonify({'error': 'wifi not found'})
             sname = scheme.name
-            scheme.delete()
-            scheme = Scheme.for_cell('wlan0', sname, cells[0], args['password'])
-            scheme.save()
+
+            for s in Scheme.all():
+                s.delete()
+                if s.name = sname:
+                    s = Scheme.for_cell('wlan0', sname, cells[0], args['password'])
+                s.save()
             return jsonify({'scheme': scheme.__dict__})
+        elif args["action"] == "clean":
+            sname = scheme.name
+            for s in Scheme.all():
+                s.delete()
+                if s.name = sname:
+                    s = Scheme('wlan0', sname)
+                s.save()
+
         else:
             return jsonify({'scheme': scheme.__dict__})
 
