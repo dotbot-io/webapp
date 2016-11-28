@@ -61,15 +61,21 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
-        while self._pnodes[id].poll() is None:
-            (line, err) = self._pnodes[id].communicate()
-            self._pnodes[id].stdout.flush()
-            if line != '':
-                line = line.rstrip()
-                yield "data: (>>>)" + line + "\n\n"
-            if err != '':
-                yield "data: (error) " + line + "\n\n"
+        pipe = self._pnodes[id].stdout
+        while True:
+            b = pipe.read(1) # read one byte
+            if not b: # EOF
+                pipe.close()
+                if buf:
+                    yield b''.join(buf)
+                return
+            elif not b.isspace(): # grow token
+                buf.append(b)
+            elif buf: # full token read
+                yield b''.join(buf)
+                buf = []
         Compiler.wall = False
+
 
     def read_buid_proc(self, id):
         while True:
