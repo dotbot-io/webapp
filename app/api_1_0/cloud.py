@@ -116,6 +116,8 @@ class WifiScheme(Resource):
     def put(self, name):
         parser = reqparse.RequestParser()
         parser.add_argument('action')
+        parser.add_argument('ssid')
+        parser.add_argument('password')
         args = parser.parse_args()
         s = [s for s in Scheme.all() if s.name == name]
         if len(s) == 0:
@@ -127,6 +129,15 @@ class WifiScheme(Resource):
             except ConnectionError:
                 return  jsonify({"error": "Failed to connect to %s." % scheme.name})
             return jsonify({'scheme': scheme.__dict__, "connected": True})
+        elif args["action"] == "configure":
+            cells = [cell for cell in Cell.all("wlan0") if cell.name == args['ssid']]
+            if cells.len == 0:
+                return jsonify({'error': 'wifi not found'})
+            sname = scheme.name
+            scheme.delete()
+            scheme = Scheme.for_cell('wlan0', sname, cell, args['password'])
+            scheme.save()
+            return jsonify({'scheme': scheme.__dict__})
         else:
             return jsonify({'scheme': scheme.__dict__})
 

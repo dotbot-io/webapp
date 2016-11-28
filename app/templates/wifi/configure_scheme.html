@@ -7,10 +7,24 @@
 {{ super() }}
 
 <script type="text/javascript">
+  var selectedCell;
 
   function chooseCell(cell) {
-    tabBody=document.getElementsByTagName("passwordLabel");
-    tabBody.innerHtml="password for " + cell.name;
+    selectedCell = cell;
+    tabBody=document.getElementById("passwordLabel");
+    tabBody.innerHTML="password for " + selectedCell.name;
+  }
+
+  function configure() {
+    $.ajax({
+      url: "/api/v1.0/wifi/schemes/" + scheme.name,
+      type: "PUT",
+      data: {'action': 'configure', "ssid": selectedCell.name, 'password': document.getElementById('passwordInput').value},
+      success: function(data) {
+        console.log(data)
+        alert('done');
+      },
+    });
   }
 
   function addCellToRow(cell) {
@@ -74,8 +88,9 @@
       <form>
         <div class="form-group">
           <label for="passwordInput" id="passwordLabel">Password</label>
-          <input type="email" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Enter password">
+          <input type="password" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Enter password">
         </div>
+        <button type="submit" onclick="configure()" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
