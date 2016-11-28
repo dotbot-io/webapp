@@ -12,10 +12,14 @@
     row=document.createElement("tr");
     cell1 = document.createElement("td");
     cell2 = document.createElement("td");
+    cell3 = document.createElement("td");
     textnode1=document.createTextNode(scheme.name);
     textnode2=document.createTextNode(scheme.options["wpa-ssid"]);
+    button = document.createElement("button")
+    button.appendChild(document.createTextNode("CLICK ME"));
     cell1.appendChild(textnode1);
     cell2.appendChild(textnode2);
+    cell3.appendChild(button);
     row.appendChild(cell1);
     row.appendChild(cell2);
     tabBody.appendChild(row);
