@@ -29,7 +29,7 @@ class Compiler:
 
     def run(self, node):
         self.kill_node(node.id)
-        self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], bufsize=0, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=self.env())
+        self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], bufsize=0, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
 
     def kill_node(self, id):
         if self.is_runnning(id):
@@ -61,23 +61,16 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
-        pipe = self._pnodes[id].stdout
-        buf = []
         while True:
-            b = pipe.read(1) # read one byte
-            if not b: # EOF
-                pipe.close()
-                if buf:
-                    yield "data: " +  b''.join(buf) + "\n\n"
-                yield "data: STOP\n\n"
+            self._pnodes[id].stdout.flush()
+            (line, err) = self._pnodes[id].communicate()
+            if line != '':
+                line = line.rstrip()
+                yield "data: " + line + "\n\n"
+            else:
+                yield "data: STOP \n\n"
                 break
-            elif not b.isspace(): # grow token
-                buf.append(b)
-            elif buf: # full token read
-                yield "data: " + b''.join(buf)  + "\n\n"
-                buf = []
         Compiler.wall = False
-
 
     def read_buid_proc(self, id):
         while True:
