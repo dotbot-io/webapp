@@ -30,6 +30,7 @@ class Robot(Resource):
         return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
 
 class RobotSketch(Resource):
+
     decorators = [cross_origin()]
 
     def put(self):
