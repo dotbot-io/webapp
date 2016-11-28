@@ -61,14 +61,13 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
-        while True:
+        while self._pnodes[id].poll() is None:
             (line, err) = self._pnodes[id].communicate()
             if line != '':
                 line = line.rstrip()
-                yield "data: " + line + "\n\n"
-            else:
-                yield "data: STOP \n\n"
-                break
+                yield "data: (>>>)" + line + "\n\n"
+            if err != '':
+                yield "data: (error) " + line + "\n\n"
         Compiler.wall = False
 
     def read_buid_proc(self, id):
