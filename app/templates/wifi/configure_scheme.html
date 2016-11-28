@@ -15,9 +15,9 @@
     tabBody.innerHTML="password for " + selectedCell.name;
   }
 
-  function configure() {
+  function configure(scheme) {
     $.ajax({
-      url: "/api/v1.0/wifi/schemes/" + scheme.name,
+      url: "/api/v1.0/wifi/schemes/" + scheme,
       type: "PUT",
       data: {'action': 'configure', "ssid": selectedCell.name, 'password': document.getElementById('passwordInput').value},
       success: function(data) {
@@ -90,7 +90,7 @@
           <label for="passwordInput" id="passwordLabel">Password</label>
           <input type="password" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Enter password">
         </div>
-        <button type="button" onclick="configure()" class="btn btn-primary">Submit</button>
+        <button type="button" onclick="configure( {{scheme}} )" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>

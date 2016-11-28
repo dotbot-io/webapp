@@ -13,4 +13,4 @@ def schemes():
 
 @wifi_views.route("/schemes/<name>/configure")
 def schemes_config(name):
-    return render_template('wifi/configure_scheme.html')
+    return render_template('wifi/configure_scheme.html', scheme=name)
