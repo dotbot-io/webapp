@@ -32,7 +32,8 @@
   getCells();
 
   function choseCell(cell) {
-    tabBody=document.getElementsByTagName("tbody").item(0);
+    tabBody=document.getElementsByTagName("passwordLabel");
+    tabBody.innerHtml="password for " + cell.name;
   }
 </script>
 
@@ -62,7 +63,7 @@
     <div class="" id="choosepassword">
       <form>
         <div class="form-group">
-          <label for="passwordInput">Password</label>
+          <label for="passwordInput" id="passwordLabel">Password</label>
           <input type="email" class="form-control" id="passwordInput" aria-describedby="emailHelp" placeholder="Enter password">
         </div>
       </form>
