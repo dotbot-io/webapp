@@ -62,6 +62,7 @@ class Compiler:
 
     def read_run_proc(self, id):
         pipe = self._pnodes[id].stdout
+        buf = []
         while True:
             b = pipe.read(1) # read one byte
             if not b: # EOF
