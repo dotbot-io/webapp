@@ -9,7 +9,10 @@ def wifi_scan():
 
 @wifi_views.route("/schemes")
 def schemes():
-    return render_template('wifi/schemes.html')
+    import subprocess
+    wifi_name = subprocess.check_output(["iwconfig wlan0 | grep ESSID | awk -F: '{print $2}'"])
+
+    return render_template('wifi/schemes.html', wifi_name=wifi_name)
 
 @wifi_views.route("/schemes/<name>/configure")
 def schemes_config(name):

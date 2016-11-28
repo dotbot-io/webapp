@@ -102,7 +102,6 @@ class WifiSchemes(Resource):
             return jsonify({'response': "ok"})
 
 class WifiScheme(Resource):
-
     def get(self, name):
         parser = reqparse.RequestParser()
         parser.add_argument('action')
@@ -168,19 +167,3 @@ rest_api.add_resource(RobotSketch, '/run/sketch')
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
 rest_api.add_resource(WifiScheme, '/wifi/schemes/<name>')
-
-
-def autoconnect():
-    ssids = [cell.ssid for cell in Cell.all('wlan0')]
-    for scheme in Scheme.all():
-        # TODO: make it easier to get the SSID off of a scheme.
-        ssid = scheme.options.get('wpa-ssid', scheme.options.get('wireless-essid'))
-        if ssid in ssids:
-            print 'Connecting to "%s".' % ssid
-            try:
-                scheme.activate()
-            except ConnectionError:
-                assert False, "Failed to connect to %s." % scheme.name
-            break
-    else:
-        assert False, "Couldn't find any schemes that are currently available."
