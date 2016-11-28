@@ -11,6 +11,6 @@ def wifi_scan():
 def schemes():
     return render_template('wifi/schemes.html')
 
-@wifi_views.route("/schemes/<name>/configure)")
+@wifi_views.route("/schemes/<name>/configure")
 def schemes_config(name):
     return render_template('wifi/scan.html')
