@@ -7,15 +7,25 @@
 {{ super() }}
 
 <script type="text/javascript">
+
+  function choseCell(cell) {
+    tabBody=document.getElementsByTagName("passwordLabel");
+    tabBody.innerHtml="password for " + cell.name;
+  }
+
   function addCellToRow(cell) {
     tabBody=document.getElementsByTagName("tbody").item(0);
     row = document.createElement("tr");
     cell1 = document.createElement("td");
     cell2 = document.createElement("td");
+    cell2 = document.createElement("td");
     textnode1=document.createTextNode(cell.name);
     textnode2=document.createTextNode(cell.encryption);
+    button = document.createElement("button");
+    button.onclick = function() {chooseCell(cell);};
     cell1.appendChild(textnode1);
     cell2.appendChild(textnode2);
+    cell3.appendChild(textnode2);
     row.appendChild(cell1);
     row.appendChild(cell2);
     tabBody.appendChild(row);
@@ -31,10 +41,6 @@
 
   getCells();
 
-  function choseCell(cell) {
-    tabBody=document.getElementsByTagName("passwordLabel");
-    tabBody.innerHtml="password for " + cell.name;
-  }
 </script>
 
 {% endblock %}
