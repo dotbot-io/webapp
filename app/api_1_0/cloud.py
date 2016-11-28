@@ -162,5 +162,3 @@ def autoconnect():
             break
     else:
         assert False, "Couldn't find any schemes that are currently available."
-
-autoconnect()
