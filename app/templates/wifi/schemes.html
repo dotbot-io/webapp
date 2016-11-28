@@ -27,16 +27,24 @@
     cell2 = document.createElement("td");
     cell3 = document.createElement("td");
     textnode1=document.createTextNode(scheme.name);
-    console.log(scheme.options)
-    textnode2=document.createTextNode(scheme.options["wpa-ssid"]);
-    button = document.createElement("button")
-    button.setAttribute("type","button")
-    button.setAttribute("class","btn btn-xs btn-info")
-    button.onclick = function() {connectToScheme(scheme);};
-    button.appendChild(document.createTextNode("connect"));
+    if (scheme.option["wpa-ssid"] === undefined) {
+      button = document.createElement("button")
+      button.setAttribute("type","button")
+      button.setAttribute("class","btn btn-xs btn-default")
+      button.onclick = function() {configureScheme(scheme);};
+      button.appendChild(document.createTextNode("configure"));
+      cell2.appendChild(button);
+    } else {
+      textnode2=document.createTextNode(scheme.options["wpa-ssid"]);
+      button = document.createElement("button")
+      button.setAttribute("type","button")
+      button.setAttribute("class","btn btn-xs btn-info")
+      button.onclick = function() {connectToScheme(scheme);};
+      button.appendChild(document.createTextNode("connect"));
+      cell2.appendChild(textnode2);
+      cell3.appendChild(button);
+    }
     cell1.appendChild(textnode1);
-    cell2.appendChild(textnode2);
-    cell3.appendChild(button);
     row.appendChild(cell1);
     row.appendChild(cell2);
     row.appendChild(cell3);
