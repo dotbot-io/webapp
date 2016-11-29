@@ -66,7 +66,7 @@ class Compiler:
         print 'read_run_proc'
         print id
         print self.is_runnning(id)
-        while self.is_runnning(id):
+        while True:
             print id in self._pnodes
             line = self._pnodes[id].stdout.readline()
             if line != '':
