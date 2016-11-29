@@ -19,7 +19,7 @@ rest_api = Api(api)
 
 comp = Compiler();
 
-
+'''
 @api.before_request
 def option_autoreply():
     if request.method == 'OPTIONS':
@@ -43,7 +43,7 @@ def option_autoreply():
             h['Access-Control-Allow-Headers'] = headers
 
         return resp
-
+'''
 
 def getMAC(interface):
     try:
@@ -59,7 +59,7 @@ class Robot(Resource):
 
 class RobotSketch(Resource):
 
-    decorators = [cross_origin(origin='*',headers=['Content-Type'])]
+    decorators = [cross_origin(origin='*',max_age=1, send_wildcard=True)]
 
     def put(self):
         node_id = 1
