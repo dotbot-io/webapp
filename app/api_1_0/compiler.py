@@ -38,7 +38,7 @@ class Compiler:
     def is_runnning(self, id):
         print 'is running'
         if id in self._pnodes:
-            if self._pnodes[id].poll() == None:
+            if self._pnodes[id].poll() != None:
                 return True
         return False
 
