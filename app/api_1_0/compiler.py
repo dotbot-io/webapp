@@ -62,6 +62,8 @@ class Compiler:
 
     def read_run_proc(self, id):
         cnt = 0
+        yield "data: STOP\n\n"
+        return
         while True:
             cnt += 1
             if id in self._pnodes:
