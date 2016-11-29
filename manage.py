@@ -2,11 +2,12 @@
 import os
 from app import create_app, db
 from app.models import Node
-from flask.ext.script import Manager, Shell, Command, Option
+from flask.ext.script import Manager, Shell, Command, Option, Server
 from flask.ext.migrate import Migrate, MigrateCommand
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
+manager.add_command("runserver", Server(Threaded=True))
 migrate = Migrate(app, db)
 
 def make_shell_context():
