@@ -29,7 +29,7 @@ class Compiler:
 
     def run(self, node):
         self.kill_node(node.id)
-        self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable(),"1>&2"], bufsize=0, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=self.env())
+        self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], bufsize=0, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=self.env())
 
     def kill_node(self, id):
         if self.is_runnning(id):
@@ -62,13 +62,16 @@ class Compiler:
 
     def read_run_proc(self, id):
         while True:
-            self._pnodes[id].stdout.flush()
-            (line, err) = self._pnodes[id].communicate()
+            line = self._pnodes[id].stdout.readline()
+            line_err = self._pnodes[id].stdout.readline()
+            if line_err != '':
+                line_err = line_err.rstrip()
+                yield "data: (err) " + line_err + "\n\n"
             if line != '':
                 line = line.rstrip()
                 yield "data: " + line + "\n\n"
             else:
-                yield "data: STOP \n\n"
+                yield "data: STOP\n\n"
                 break
         Compiler.wall = False
 
