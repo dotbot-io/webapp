@@ -40,7 +40,7 @@ def option_autoreply():
 
         h["Access-Control-Allow-Credentials"] = False;
         h["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
-
+        h["Access-Control-Allow-Content-Type"] = "text/event-stream; charset=utf-8"
         # We also keep current headers
         if headers is not None:
             h['Access-Control-Allow-Headers'] = headers
