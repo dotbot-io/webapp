@@ -62,7 +62,6 @@ def create_app(config_name):
         dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
         pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
         env_info =  pipe.stdout.read()
-        print env_info
         env = json.loads(env_info)
         return env["ROS_MASTER_URI"].split('//')[1].split(":")[0] or 'localhost', env["DOTBOT_NAME"] or 'dotbot', env["ROS_IP"] or 'localhost'
 
