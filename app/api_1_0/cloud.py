@@ -61,13 +61,7 @@ class RobotSketch(Resource):
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
     def options(self):
-        response.headers.update({
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, OPTIONS, DELETE, PUT',
-            'Access-Control-Allow-Headers': 'X-REQUESTED-WITH, CACHE-CONTROL, LAST-EVENT-ID',
-            'Content-Type': 'text/plain'})
-        return ''
-
+        pass
 
     def delete(self):
         print 'delete me'
