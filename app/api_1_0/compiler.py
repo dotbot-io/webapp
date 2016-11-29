@@ -30,6 +30,7 @@ class Compiler:
     def run(self, node):
         self.kill_node(node.id)
         self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env())
+        self.kill_node(node.id)
 
     def kill_node(self, id):
         if self.is_runnning(id):
@@ -38,7 +39,7 @@ class Compiler:
     def is_runnning(self, id):
         print 'is running'
         if id in self._pnodes:
-            if self._pnodes[id].poll() != None:
+            if self._pnodes[id].poll() == None:
                 return True
         return False
 
@@ -62,8 +63,6 @@ class Compiler:
 
     def read_run_proc(self, id):
         cnt = 0
-        yield "data: STOP\n\n"
-        return
         while True:
             cnt += 1
             if id in self._pnodes:
