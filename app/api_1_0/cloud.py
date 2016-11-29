@@ -70,6 +70,7 @@ class RobotSketch(Resource):
 
 
     def delete(self):
+        print 'delete me'
         parser = reqparse.RequestParser()
         parser.add_argument('node')
         args = parser.parse_args()
