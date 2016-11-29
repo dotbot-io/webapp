@@ -34,7 +34,7 @@ class Robot(Resource):
 
 class RobotSketch(Resource):
 
-    decorators = [cross_origin()]
+    decorators = [cross_origin(origin='*',headers=['Content-Type'])]
 
     def put(self):
         node_id = 1
