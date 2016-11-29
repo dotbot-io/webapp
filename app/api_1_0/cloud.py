@@ -32,7 +32,7 @@ def option_autoreply():
         h = resp.headers
 
         # Allow the origin which made the XHR
-        h['Access-Control-Allow-Origin'] = request.headers['Origin']
+        h['Access-Control-Allow-Origin'] = '*'
         # Allow the actual method
         h['Access-Control-Allow-Methods'] = h['Allow']
         # Allow for 10 seconds
