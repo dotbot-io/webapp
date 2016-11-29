@@ -57,7 +57,7 @@ class RobotSketch(Resource):
         return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
 
     def options(self):
-        pass
+        return ''
 
     def delete(self):
         parser = reqparse.RequestParser()
