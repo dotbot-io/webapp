@@ -38,8 +38,11 @@ class Compiler:
             self._pnodes[id].terminate()
 
     def is_runnning(self, id):
+        print 'is running'
         if id in self._pnodes:
-            if self._pnodes[id].poll() is None:
+            print 'is running', id
+            if self._pnodes[id].poll() == None:
+                print 'is running', id, True
                 return True
         return False
 
