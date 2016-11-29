@@ -64,7 +64,6 @@ class RobotSketch(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('node')
         args = parser.parse_args()
-        print args
         env = comp.env()
         env["ROS_NAMESPACE"] = '';
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
