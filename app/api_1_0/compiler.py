@@ -72,9 +72,13 @@ class Compiler:
                 else:
                     yield "data: STOP\n\n"
                     break
-            elif cnt > 1000:
+            elif cnt < 1000:
+                yield "data: waiting\n\n"
+                break
+            else:
                 yield "data: STOP\n\n"
                 break
+
 
     def read_buid_proc(self, id):
         while True:
