@@ -64,8 +64,9 @@ class Compiler:
     def read_run_proc(self, id):
         print 'read_run_proc'
         while self.is_runnning(id):
+            print id in self._pnodes
             line = self._pnodes[id].stdout.readline()
-            line_err = self._pnodes[id].stdout.readline()
+            line_err = self._pnodes[id].stderr.readline()
             if line != '':
                 line = line.rstrip()
                 yield "data: " + line + "\n\n"

@@ -6,7 +6,6 @@ from flask_json import JsonError, json_response, as_json
 from flask_restful import Api, Resource, reqparse
 
 from . import api
-from compile import comp
 from ..models import Node, File
 from datetime import datetime
 from .. import db
@@ -16,6 +15,9 @@ from wifi import Cell, Scheme
 from wifi.exceptions import ConnectionError
 
 rest_api = Api(api)
+
+comp = Compiler();
+
 
 def getMAC(interface):
     try:
