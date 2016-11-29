@@ -1,4 +1,4 @@
-from flask import Flask, current_app, g, jsonify, Response, request
+from flask import Flask, current_app, g, jsonify, Response, request, current_app
 from flask_restful import Resource, Api
 
 from flask_cors import CORS, cross_origin
@@ -25,7 +25,7 @@ def option_autoreply():
     """ Always reply 200 on OPTIONS request """
 
     if request.method == 'OPTIONS':
-        resp = app.make_default_options_response()
+        resp = current_app.make_default_options_response()
 
         headers = None
         if 'ACCESS_CONTROL_REQUEST_HEADERS' in request.headers:
