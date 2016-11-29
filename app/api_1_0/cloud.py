@@ -22,8 +22,6 @@ comp = Compiler();
 
 @api.before_request
 def option_autoreply():
-    """ Always reply 200 on OPTIONS request """
-
     if request.method == 'OPTIONS':
         resp = current_app.make_default_options_response()
 
@@ -38,7 +36,7 @@ def option_autoreply():
         # Allow the actual method
         h['Access-Control-Allow-Methods'] = h['Allow']
         # Allow for 10 seconds
-        h['Access-Control-Max-Age'] = "10"
+        h['Access-Control-Max-Age'] = "1"
 
         # We also keep current headers
         if headers is not None:
