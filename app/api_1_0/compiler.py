@@ -33,7 +33,7 @@ class Compiler:
 
     def kill_node(self, id):
         if self.is_runnning(id):
-            os.killpg(os.getpgid(self._pnodes[id].pid), signal.SIGTERM)
+            os.killpg(os.getpgid(self._pnodes[id].pid), signal.SIGINT)
 
     def is_runnning(self, id):
         print 'is running'
