@@ -49,6 +49,7 @@ class RobotSketch(Resource):
 
     	n = Node.query.get_or_404(node_id)
     	comp.run(n)
+        print 'node running'
     	return jsonify({'response': 'ok'})
 
     def get(self):
@@ -63,6 +64,7 @@ class RobotSketch(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('node')
         args = parser.parse_args()
+        print args
         env = comp.env()
         env["ROS_NAMESPACE"] = '';
         subprocess.Popen(['rosnode', 'kill', args.node], env=env)
