@@ -36,9 +36,9 @@ def option_autoreply():
         # Allow the actual method
         h['Access-Control-Allow-Methods'] = h['Allow']
         # Allow for 10 seconds
-        h['Access-Control-Max-Age'] = "1"
+        h['Access-Control-Max-Age'] = 1
 
-        h["Access-Control-Allow-Credentials"] = false;
+        h["Access-Control-Allow-Credentials"] = False;
         h["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
 
         # We also keep current headers
