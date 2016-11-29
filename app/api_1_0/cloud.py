@@ -19,7 +19,7 @@ rest_api = Api(api)
 
 comp = Compiler();
 
-'''
+
 @api.before_request
 def option_autoreply():
     if request.method == 'OPTIONS':
@@ -38,12 +38,15 @@ def option_autoreply():
         # Allow for 10 seconds
         h['Access-Control-Max-Age'] = "1"
 
+        h["Access-Control-Allow-Credentials"] = false;
+        h["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+
         # We also keep current headers
         if headers is not None:
             h['Access-Control-Allow-Headers'] = headers
 
         return resp
-'''
+
 
 def getMAC(interface):
     try:
@@ -59,7 +62,7 @@ class Robot(Resource):
 
 class RobotSketch(Resource):
 
-    decorators = [cross_origin(origin='*',max_age=1, send_wildcard=True)]
+    decorators = [cross_origin(origin='*')]
 
     def put(self):
         node_id = 1
