@@ -36,7 +36,7 @@ def option_autoreply():
         # Allow the origin which made the XHR
         h['Access-Control-Allow-Origin'] = request.headers['Origin']
         # Allow the actual method
-        # h['Access-Control-Allow-Methods'] = request.headers['Access-Control-Request-Method']
+        h['Access-Control-Allow-Methods'] = ['PUT', 'POST', 'GET', 'OPTIONS', 'DELETE']
         # Allow for 10 seconds
         h['Access-Control-Max-Age'] = "10"
 
