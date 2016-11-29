@@ -1,6 +1,7 @@
 import subprocess
 import tempfile
 import os
+import signal
 from flask import current_app, g
 
 class Compiler:
@@ -33,7 +34,7 @@ class Compiler:
 
     def kill_node(self, id):
         if self.is_runnning(id):
-            os.killpg(os.getpgid(self._pnodes[id].pid), signal.SIGINT)
+            self._pnodes[node.id].send_signal(signal.CTRL_C_EVENT)
 
     def is_runnning(self, id):
         print 'is running'
