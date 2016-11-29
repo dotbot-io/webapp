@@ -13,6 +13,7 @@ import subprocess
 
 from wifi import Cell, Scheme
 from wifi.exceptions import ConnectionError
+from compiler import Compiler
 
 rest_api = Api(api)
 
