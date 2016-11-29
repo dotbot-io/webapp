@@ -8,6 +8,7 @@ class Config:
     CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/dotbot_ws/ros/'
     DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
     ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/indigo/setup.bash'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     @staticmethod
     def init_app(app):
         pass
