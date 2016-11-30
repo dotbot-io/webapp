@@ -4,23 +4,14 @@ import os
 import signal
 from flask import current_app, g
 
-from werkzeug.local import Local
-loc = Local()
-
-
 class Compiler:
     wall = False
-    global loc
 
     def __init__(self):
-        if 'compiler' in loc:
-            self = loc.compiler
-
-        else:
-            self.read = False
-            self._env = None
-            self._pnodes = {}
-            loc.compiler = self
+        self.read = False
+        self._env = None
+        self._pnodes = {}
+        pass
 
     def load_env(self):
         import json
