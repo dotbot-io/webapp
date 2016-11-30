@@ -65,6 +65,7 @@ class RobotSketch(Resource):
     decorators = [cross_origin(origin='*')]
 
     def put(self):
+        '''
         node_id = 1
         file_id = 1
     	f = File.query.get_or_404(file_id)
@@ -81,6 +82,11 @@ class RobotSketch(Resource):
     	n = Node.query.get_or_404(node_id)
     	comp.run(n)
         print 'node running'
+        '''
+		of = open('/opt/virtualenvs/ros/project/dotbot_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
+		of.write(args['code'])
+		of.close()
+        comp.run_dotbot_node()
     	return jsonify({'response': 'ok'})
 
     def get(self):

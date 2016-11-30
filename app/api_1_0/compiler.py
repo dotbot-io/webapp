@@ -34,6 +34,14 @@ class Compiler:
         import time
         time.sleep(2)
 
+
+    def run_dotbot_node(self):
+        #self.kill_node(node.id)
+        self._pnodes[1] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], 'dotbot_ros.py'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env(), preexec_fn=os.setsid)
+        import time
+        time.sleep(2)
+
+
     def kill_node(self, id):
         if self.is_running(id):
             self._pnodes[node.id].send_signal(signal.CTRL_C_EVENT)
