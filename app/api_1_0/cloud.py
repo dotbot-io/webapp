@@ -88,6 +88,7 @@ class RobotSketch(Resource):
         of.write(args['code'])
         of.close()
         comp.run_dotbot_node()
+        print "pnods _out ", comp._pnodes
         return jsonify({'response': 'ok'})
 
     def get(self):
