@@ -83,11 +83,11 @@ class RobotSketch(Resource):
     	comp.run(n)
         print 'node running'
         '''
-		of = open('/opt/virtualenvs/ros/project/dotbot_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
-		of.write(args['code'])
-		of.close()
+        of = open('/opt/virtualenvs/ros/project/dotbot_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
+        of.write(args['code'])
+        of.close()
         comp.run_dotbot_node()
-    	return jsonify({'response': 'ok'})
+        return jsonify({'response': 'ok'})
 
     def get(self):
         print 'getting streaming'
