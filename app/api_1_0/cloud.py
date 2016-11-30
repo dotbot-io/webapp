@@ -21,7 +21,9 @@ from werkzeug.local import Local
 loc = Local()
 
 
-loc.comp = Compiler();
+loc.comp = Compiler()
+print loc
+print loc.comp
 
 
 @api.before_request
