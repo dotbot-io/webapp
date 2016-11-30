@@ -103,6 +103,9 @@ class RobotSketch(Resource):
     	return jsonify({'response': 'ok'})
 
 class StreamNode(Resource):
+
+    decorators = [cross_origin(origin='*')]
+
     def get(self, id):
         return Response(comp.read_run_proc(id), mimetype='text/event-stream')
 
