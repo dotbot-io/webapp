@@ -17,7 +17,11 @@ from compiler import Compiler
 
 rest_api = Api(api)
 
-comp = Compiler();
+from werkzeug.local import Local
+loc = Local()
+
+
+loc.comp = Compiler();
 
 
 @api.before_request
@@ -87,8 +91,8 @@ class RobotSketch(Resource):
         of = open('/opt/virtualenvs/ros/project/dotbot_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
         of.write(args['code'])
         of.close()
-        comp.run_dotbot_node()
-        print "pnods _out ", comp._pnodes
+        loc.comp.run_dotbot_node()
+        print "pnods _out ", loc.comp._pnodes
         return jsonify({'response': 'ok'})
 
     def get(self):
@@ -104,7 +108,7 @@ class RobotSketch(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('node')
         args = parser.parse_args()
-        env = comp.env()
+        env = loc.comp.env()
         env["ROS_NAMESPACE"] = '';
         killproc = subprocess.Popen(['rosnode', 'kill', args.node], env=env)
         killproc.wait()
@@ -115,7 +119,7 @@ class StreamNode(Resource):
     decorators = [cross_origin(origin='*')]
 
     def get(self, id):
-        return Response(comp.read_run_proc(id), mimetype='text/event-stream')
+        return Response(loc.comp.read_run_proc(id), mimetype='text/event-stream')
 
 class WifiCells(Resource):
     def get(self):

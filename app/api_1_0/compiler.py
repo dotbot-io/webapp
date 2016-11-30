@@ -4,6 +4,7 @@ import os
 import signal
 from flask import current_app, g
 
+
 class Compiler:
     wall = False
     def __init__(self):
