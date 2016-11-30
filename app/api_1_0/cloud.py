@@ -1,4 +1,4 @@
-from flask import Flask, current_app, g, jsonify, Response, request, current_app
+from flask import Flask, current_app, g, jsonify, Response, request, current_app, redirect
 from flask_restful import Resource, Api
 
 from flask_cors import CORS, cross_origin
@@ -86,7 +86,7 @@ class RobotSketch(Resource):
     def get(self):
         print 'getting streaming'
         node_id = 1
-        return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
+        return redirect(url_for("api.stream", id=1))
 
     def options(self):
         pass
@@ -101,6 +101,10 @@ class RobotSketch(Resource):
         killproc = subprocess.Popen(['rosnode', 'kill', args.node], env=env)
         killproc.wait()
     	return jsonify({'response': 'ok'})
+
+class StreamNode(Resource):
+    def get(self, id):
+        return Response(comp.read_run_proc(id), mimetype='text/event-stream')
 
 class WifiCells(Resource):
     def get(self):
@@ -200,6 +204,8 @@ class WifiScheme(Resource):
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
+rest_api.add_resource(StreamNode, '/stream/<int:id>', endpoint="api.stream")
+
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
 rest_api.add_resource(WifiScheme, '/wifi/schemes/<name>')

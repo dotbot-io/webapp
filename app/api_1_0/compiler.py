@@ -74,8 +74,6 @@ class Compiler:
                 else:
                     yield "data: STOP\n\n"
                     break
-            elif cnt < 1000:
-                yield "data: waiting\n\n"
             else:
                 yield "data: STOP\n\n"
                 break
