@@ -37,7 +37,6 @@ class Compiler:
             self._pnodes[node.id].send_signal(signal.CTRL_C_EVENT)
 
     def is_runnning(self, id):
-        print 'is running'
         if id in self._pnodes:
             if self._pnodes[id].poll() == None:
                 return True

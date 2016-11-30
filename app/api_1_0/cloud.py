@@ -98,7 +98,8 @@ class RobotSketch(Resource):
         args = parser.parse_args()
         env = comp.env()
         env["ROS_NAMESPACE"] = '';
-        subprocess.Popen(['rosnode', 'kill', args.node], env=env)
+        killproc = subprocess.Popen(['rosnode', 'kill', args.node], env=env)
+        killproc.wait()
     	return jsonify({'response': 'ok'})
 
 class WifiCells(Resource):
