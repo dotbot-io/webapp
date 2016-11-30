@@ -64,19 +64,13 @@ class Compiler:
 
     def read_run_proc(self, id):
         cnt = 0
-        while True:
-            cnt += 1
-            if id in self._pnodes:
-                line = self._pnodes[id].stdout.readline()
-                if line != '':
-                    line = line.rstrip()
-                    yield "data: " + line + "\n\n"
-                else:
-                    yield "data: STOP\n\n"
-                    break
-            else:
-                yield "data: STOP\n\n"
-                break
+        while self.is_running(id):
+            line = self._pnodes[id].stdout.readline()
+            if line != '':
+                line = line.rstrip()
+                yield "data: " + line + "\n\n"
+        yield "data: STOP\n\n"
+        break
 
 
     def read_buid_proc(self, id):
