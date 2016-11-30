@@ -71,6 +71,7 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
+        import io
         for line in io.TextIOWrapper(self._pnodes[id].stdout, encoding="utf-8"):
             line = line.rstrip()
             yield "data: " + line + "\n\n"
