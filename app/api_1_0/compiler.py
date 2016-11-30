@@ -70,7 +70,6 @@ class Compiler:
                 line = line.rstrip()
                 yield "data: " + line + "\n\n"
         yield "data: STOP\n\n"
-        break
 
 
     def read_buid_proc(self, id):
