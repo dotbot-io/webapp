@@ -204,7 +204,7 @@ class WifiScheme(Resource):
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
-rest_api.add_resource(StreamNode, '/stream/<int:id>', endpoint="api.stream")
+rest_api.add_resource(StreamNode, '/stream/<int:id>', endpoint="stream")
 
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
