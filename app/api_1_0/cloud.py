@@ -65,13 +65,14 @@ class RobotSketch(Resource):
     decorators = [cross_origin(origin='*')]
 
     def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('code')
+        args = parser.parse_args()
+
         '''
         node_id = 1
         file_id = 1
     	f = File.query.get_or_404(file_id)
-        parser = reqparse.RequestParser()
-        parser.add_argument('code')
-        args = parser.parse_args()
 
     	f.code = args['code']
     	f.last_edit = datetime.utcnow()
