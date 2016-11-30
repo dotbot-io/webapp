@@ -71,6 +71,8 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
+        import time
+        time.sleep(2)
         while True:
             line = self._pnodes[id].stdout.readline()
             if line != '':
