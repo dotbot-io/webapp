@@ -35,10 +35,10 @@ class Compiler:
         print node.id
 
     def kill_node(self, id):
-        if self.is_runnning(id):
+        if self.is_running(id):
             self._pnodes[node.id].send_signal(signal.CTRL_C_EVENT)
 
-    def is_runnning(self, id):
+    def is_running(self, id):
         if id in self._pnodes:
             if self._pnodes[id].poll() == None:
                 return True
@@ -63,7 +63,6 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
-        cnt = 0
         while self.is_running(id):
             line = self._pnodes[id].stdout.readline()
             if line != '':
