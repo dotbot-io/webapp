@@ -32,15 +32,11 @@ class Compiler:
     def run(self, node):
         #self.kill_node(node.id)
         self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable()], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env(), preexec_fn=os.setsid)
-        import time
-        time.sleep(2)
 
 
     def run_dotbot_node(self):
         #self.kill_node(node.id)
         self._pnodes[1] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], 'dotbot_ros.py'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env(), preexec_fn=os.setsid)
-        import time
-        time.sleep(2)
 
 
     def kill_node(self, id):
@@ -72,10 +68,6 @@ class Compiler:
         self.proc = subprocess.Popen(['catkin_make', '--force-cmake'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=current_app.config["CATKIN_FOLDER"], env=self.env())
 
     def read_run_proc(self, id):
-        print self._pnodes
-        import time
-        time.sleep(2)
-        print self._pnodes
         while True:
             line = self._pnodes[id].stdout.readline()
             if line != '':
