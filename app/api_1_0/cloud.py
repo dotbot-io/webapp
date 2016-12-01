@@ -88,8 +88,6 @@ class RobotSketch(Resource):
         of = open('/opt/virtualenvs/ros/project/dotbot_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
         of.write(args['code'])
         of.close()
-        comp.run_dotbot_node()
-        print "pnods _out ", comp._pnodes
         return jsonify({'response': 'ok'})
 
     def get(self):
@@ -116,6 +114,7 @@ class StreamNode(Resource):
     decorators = [cross_origin(origin='*')]
 
     def get(self, id):
+        comp.run_dotbot_node()
         return Response(comp.read_run_proc(id), mimetype='text/event-stream')
 
 class WifiCells(Resource):
