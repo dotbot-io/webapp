@@ -59,7 +59,21 @@ def getMAC(interface):
 class Robot(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"], methods=['GET', 'PUT'])]
     def get(self):
-        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
+        import socket
+        try:
+            master_uri = socket.gethostbyname(current_app.config["ROS_MASTER_URI"])
+        except:
+            master_uri = 'not found'
+
+        import subprocess, os
+        path = os.path.realpath(__file__)
+        p = subprocess.Popen('git describe --always', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=os.path.dirname(path))
+        ver = ""
+        for line in p.stdout.readlines():
+            ver =  line.rstrip()
+        retval = p.wait()
+
+        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': master_uri, 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros", "version":ver})
 
 class RobotSketch(Resource):
 
