@@ -99,7 +99,7 @@ class RobotSketch(Resource):
     	comp.run(n)
         print 'node running'
         '''
-        of = open('/opt/virtualenvs/ros/project/dotbot_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
+        of = open('/opt/ros_ws/src/dotbot_app/script/node.py', "w")
         of.write(args['code'])
         of.close()
         return jsonify({'response': 'ok'})

@@ -17,7 +17,7 @@ class Compiler:
         import json
         source = 'source ' + current_app.config["ROS_ENVS"]
         dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
-        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
+        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE, env={})
         env_info =  pipe.stdout.read()
         self._env = json.loads(env_info)
         self._env["PWD"] = current_app.config["CATKIN_FOLDER"]
