@@ -1,4 +1,4 @@
-from flask import Flask, current_app, g, jsonify, Response, request
+from flask import Flask, current_app, g, jsonify, Response, request, redirect, url_for
 from flask_restful import Resource, Api
 
 from flask_cors import CORS, cross_origin
@@ -31,39 +31,54 @@ class Robot(Resource):
 
 class RobotSketch(Resource):
 
-    decorators = [cross_origin()]
+    decorators = [cross_origin(origin='*')]
 
     def put(self):
-        node_id = 1
-        file_id = 1
-    	f = File.query.get_or_404(file_id)
         parser = reqparse.RequestParser()
         parser.add_argument('code')
         args = parser.parse_args()
 
-    	f.code = args['code']
-    	f.last_edit = datetime.utcnow()
-    	db.session.add(f)
-    	f.save()
+        '''
+        node_id = 1
+        file_id = 1
+        f = File.query.get_or_404(file_id)
+
+        f.code = args['code']
+        f.last_edit = datetime.utcnow()
+        db.session.add(f)
+        f.save()
         db.session.commit()
 
-    	n = Node.query.get_or_404(node_id)
-    	comp.run(n)
-    	return jsonify({'response': 'ok'})
+        n = Node.query.get_or_404(node_id)
+        comp.run(n)
+        print 'node running'
+        '''
+        of = open('/home/ubuntu/ros_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
+        of.write(args['code'])
+        of.close()
+        return jsonify({'response': 'ok'})
 
     def get(self):
         print 'getting streaming'
         node_id = 1
-        return Response(comp.read_run_proc(node_id), mimetype='text/event-stream')
+        return redirect(url_for("api.stream", id=1))
+
+    def options(self):
+        pass
 
     def delete(self):
+        print 'delete me'
         parser = reqparse.RequestParser()
         parser.add_argument('node')
         args = parser.parse_args()
         env = comp.env()
         env["ROS_NAMESPACE"] = '';
-        subprocess.Popen(['rosnode', 'kill', args.node], env=env)
-    	return jsonify({'response': 'ok'})
+        killproc = subprocess.Popen(['rosnode', 'kill', args.node], env=env)
+        killproc.wait()
+        return jsonify({'response': 'ok'})
+
+
+
 
 class WifiCells(Resource):
     def get(self):
@@ -159,10 +174,18 @@ class WifiScheme(Resource):
             return jsonify({'response': "non found"})
 
 
+class StreamNode(Resource):
 
+    decorators = [cross_origin(origin='*')]
+
+    def get(self, id):
+        comp.run_dotbot_node()
+        return Response(comp.read_run_proc(id), mimetype='text/event-stream')
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
 rest_api.add_resource(WifiScheme, '/wifi/schemes/<name>')
+
+rest_api.add_resource(StreamNode, '/stream/<int:id>', endpoint="stream")

@@ -5,12 +5,13 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     BOOTSTRAP_SERVE_LOCAL = True
-    CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/Users/ludus/develop/dotbot_ws/ros/'
+    CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/home/ubuntu/ros_ws'
     DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
-    ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/indigo/setup.bash'
+    ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/kinetic/setup.bash'
     @staticmethod
     def init_app(app):
-        pass
+        print app.config["SQLALCHEMY_DATABASE_URI"]
+
 
 class DevelopmentConfig(Config):
     DEBUG = True

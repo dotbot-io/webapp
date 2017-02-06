@@ -15,7 +15,7 @@ class Compiler:
         import json
         source = 'source ' + current_app.config["ROS_ENVS"]
         dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
-        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
+        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE, env={})
         env_info =  pipe.stdout.read()
         self._env = json.loads(env_info)
         self._env["PWD"] = current_app.config["CATKIN_FOLDER"]
@@ -30,6 +30,12 @@ class Compiler:
     def run(self, node):
         self.kill_node(node.id)
         self._pnodes[node.id] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], node.executable(),"1>&2"], bufsize=0, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=self.env())
+
+
+    def run_dotbot_node(self):
+        #self.kill_node(node.id)
+        self._pnodes[1] = subprocess.Popen(['rosrun', current_app.config["DOTBOT_PACKAGE_NAME"], 'dotbot_ros.py'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=self.env(), preexec_fn=os.setsid)
+
 
     def kill_node(self, id):
         if self.is_runnning(id):
@@ -62,15 +68,16 @@ class Compiler:
 
     def read_run_proc(self, id):
         while True:
-            self._pnodes[id].stdout.flush()
-            (line, err) = self._pnodes[id].communicate()
+            line = self._pnodes[id].stdout.readline()
             if line != '':
                 line = line.rstrip()
                 yield "data: " + line + "\n\n"
             else:
-                yield "data: STOP \n\n"
+                yield "data: STOP\n\n"
                 break
-        Compiler.wall = False
+
+        yield "data: STOP\n\n"
+
 
     def read_buid_proc(self, id):
         while True:

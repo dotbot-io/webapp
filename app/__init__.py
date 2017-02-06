@@ -57,14 +57,7 @@ def create_app(config_name):
         return ver
 
     def get_ros():
-        import json, subprocess
-        source = 'source ' + app.config["ROS_ENVS"]
-        dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
-        pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
-        env_info =  pipe.stdout.read()
-        print env_info
-        env = json.loads(env_info)
-        return env["ROS_MASTER_URI"].split('//')[1].split(":")[0] or 'localhost', env["DOTBOT_NAME"] or 'dotbot', env["ROS_IP"] or 'localhost'
+        return '54.191.14.121', 'cloudbot','54.191.14.121:8080'
 
     app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
     @app.context_processor
