@@ -24,10 +24,10 @@ def deploy():
     print 'INFO  [deploy command] migrate database to latest revision'
     upgrade()
 
-	n = Node(name='node', language='py')
-	db.session.add(n)
-	db.session.commit()
-	n.create()
+    n = Node(name='node', language='py')
+    db.session.add(n)
+    db.session.commit()
+    n.create()
 
 @manager.command
 def test():
@@ -37,5 +37,4 @@ def test():
 	unittest.TextTestRunner(verbosity=2).run(tests)
 
 if __name__ == '__main__':
-	manager.deploy()
 	manager.run()

@@ -8,29 +8,12 @@ class Config:
     CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/home/ubuntu/ros_ws'
     DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
     ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/kinetic/setup.bash'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:////hbrain/run/data-dev.sqlite')
+
     @staticmethod
     def init_app(app):
-        print app.config["SQLALCHEMY_DATABASE_URI"]
-
-
-class DevelopmentConfig(Config):
-    DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
-
-class TestingConfig(Config):
-    TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
-
-class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-
-
+        pass
+        
 config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'production': ProductionConfig,
     'default': DevelopmentConfig
 }
