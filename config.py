@@ -8,12 +8,12 @@ class Config:
     CATKIN_FOLDER = os.environ.get('CATKIN_FOLDER') or '/home/ubuntu/ros_ws'
     DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
     ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/kinetic/setup.bash'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:////hbrain/run/data-dev.sqlite')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:////hbrain/run/data-dev.sqlite'
 
     @staticmethod
     def init_app(app):
         pass
-        
+
 config = {
     'default': DevelopmentConfig
 }
