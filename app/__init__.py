@@ -25,39 +25,11 @@ def create_app(config_name):
     json.init_app(app)
     cors.init_app(app)
 
-    from .main import main as main_bp
-    app.register_blueprint(main_bp)
-
-    from .settings import settings as settings_bp
-    app.register_blueprint(settings_bp, url_prefix='/settings')
-
-
-    from .ros import ros as ros_bp
-    app.register_blueprint(ros_bp)
-
-    from .gui import gui as gui_bp
-    app.register_blueprint(gui_bp, url_prefix="/gui")
-
     from .api_1_0 import api as api_1_0_bp
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
-    from .wifi_views import wifi_views as wifi_views_bp
-    app.register_blueprint(wifi_views_bp, url_prefix='/wifi')
-
-
-
-    def get_version():
-        import subprocess, os
-        path = os.path.realpath(__file__)
-        p = subprocess.Popen('git describe --always', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, cwd=os.path.dirname(path))
-        ver = ""
-        for line in p.stdout.readlines():
-            ver =  line.rstrip()
-        retval = p.wait()
-        return ver
-
     def get_ros():
-        return '54.191.14.121', 'cloudbot','54.191.14.121:8080'
+        return '*', 'cloudbot','*/bridge'
 
     app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
     @app.context_processor
@@ -65,6 +37,6 @@ def create_app(config_name):
         g.MASTER_URL = app.config["ROS_MASTER_URI"]
         g.DOTBOT_NAME = app.config["DOTBOT_NAME"]
         g.ROS_IP = app.config["ROS_IP"]
-    	return dict(version=get_version())
+    	return dict(version='cloud')
 
     return app
