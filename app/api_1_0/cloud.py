@@ -27,7 +27,7 @@ def getMAC(interface):
 class Robot(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"], methods=['GET', 'PUT'])]
     def get(self):
-        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
+        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5", 'bridge': current_app.config["ROS_BRIDGE"]})
 
 class RobotSketch(Resource):
 
@@ -53,7 +53,7 @@ class RobotSketch(Resource):
         comp.run(n)
         print 'node running'
         '''
-        of = open('/home/ubuntu/ros_ws/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
+        of = open('/hbrain/catkin/src/dotbot_app/dotbot_ros_skeleton/node.py', "w")
         of.write(args['code'])
         of.close()
         return jsonify({'response': 'ok'})

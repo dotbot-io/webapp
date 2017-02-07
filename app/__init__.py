@@ -29,14 +29,17 @@ def create_app(config_name):
     app.register_blueprint(api_1_0_bp, url_prefix='/api/v1.0')
 
     def get_ros():
-        return '*', 'cloudbot','*/bridge'
+        return '*', 'cloudbot','*'
 
     app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
+    app.config["ROS_BRIDGE"] = '*/bridge/'
+
     @app.context_processor
     def utility_processor():
         g.MASTER_URL = app.config["ROS_MASTER_URI"]
         g.DOTBOT_NAME = app.config["DOTBOT_NAME"]
         g.ROS_IP = app.config["ROS_IP"]
+        g.ROS_BRIDGE = app.config["ROS_BRIDGE"]
     	return dict(version='cloud')
 
     return app
