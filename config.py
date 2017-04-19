@@ -2,9 +2,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-
-    MODEL_HB = 'HBrain vb0.4.2'
-
+    MODEL_HB = 'HBrain vb0.5.0'
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     BOOTSTRAP_SERVE_LOCAL = True
@@ -12,6 +10,7 @@ class Config:
     DOTBOT_PACKAGE_NAME = os.environ.get('DOTBOT_PACKAGE_NAME') or 'dotbot_app'
     ROS_ENVS = os.environ.get('ROS_ENVS') or '/opt/ros/indigo/setup.bash'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
     @staticmethod
     def init_app(app):
         pass
@@ -29,7 +28,6 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-
 
 config = {
     'development': DevelopmentConfig,

@@ -36,41 +36,18 @@
 	});
 </script>
 
-{% endblock %} {% block navbar %}
+{% endblock %}
+
+{% block navbar %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/main.css') }}">
 <div class="navbar navbar-inverse" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span> </button>
 			<a class="navbar-brand" href="/">
 				<img style="max-height:20px;" src="/static/img/logo/dotbot-full-50px-white.png">
 			</a>
 		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="/nodes">Nodes</a></li>
-				<li><a href="/rosconsole">Console</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ROS <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="/test">Test</a></li>
-						<li><a href="//wiki.ros.org">Ros Wiki</a></li>
-					</ul>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li> <a href="/settings"><span class="glyphicon glyphicon-cog"></span> </a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-off" style="color:red"></span>  <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="/api/v1.0/bin/poweroff">Power Off</a></li>
-						<li><a href="/api/v1.0/bin/reboot">Reboot</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+
 
 	</div>
 </div>
@@ -107,33 +84,15 @@
 	  </div>
 	</div>
 
-	{% block page_content %}{% endblock %}
+	{% block page_content %}
+	{% endblock %}
 
 </div>
-
 <footer class="footer">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6" style="padding:15px 0">
-				<p class="text-muted">Designed by Ludovico Russo.</p>
-			</div>
-			<div class="col-md-6" style="text-align:center">
-				<p class="text-muted">
-					<ul class="soc">
-						<li>
-							<a class="soc-twitter" href="#"></a>
-						</li>
-						<li>
-							<a class="soc-facebook" href="#"></a>
-						</li>
-						<li>
-							<a class="soc-instagram" href="#"></a>
-						</li>
-						<li>
-							<a class="soc-github soc-icon-last" href="//github.com/Robotoma/robotoma-web-server"></a>
-						</li>
-					</ul>
-				</p>
+				<p class="text-muted">Designed by HotBlack Robotics.</p>
 			</div>
 		</div>
 	</div>
