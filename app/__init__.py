@@ -58,19 +58,59 @@ def create_app(config_name):
 
     def get_ros():
         import json, subprocess
+        import time
+        time.sleep(5)
         source = 'source ' + app.config["ROS_ENVS"]
         dump = 'python -c "import os, json;print json.dumps(dict(os.environ))"'
         pipe = subprocess.Popen(['/bin/bash', '-c', '%s && %s' %(source,dump)], stdout=subprocess.PIPE)
         env_info =  pipe.stdout.read()
         env = json.loads(env_info)
-        return env["ROS_MASTER_URI"].split('//')[1].split(":")[0] or 'localhost', env["DOTBOT_NAME"] or 'dotbot', env["ROS_IP"] or 'localhost'
+        return env["ROS_MASTER_URI"].split('//')[1].split(":")[0].rstrip() or 'localhost', env["DOTBOT_NAME"].rstrip() or 'dotbot', env["ROS_IP"].rstrip() or 'localhost'
 
     app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
+
     @app.context_processor
     def utility_processor():
         g.MASTER_URL = app.config["ROS_MASTER_URI"]
         g.DOTBOT_NAME = app.config["DOTBOT_NAME"]
         g.ROS_IP = app.config["ROS_IP"]
     	return dict(version=get_version())
+
+
+    def sendServerInfo():
+        import requests
+        from flask import current_app
+        with app.app_context():
+            app.config["ROS_MASTER_URI"], app.config["DOTBOT_NAME"], app.config["ROS_IP"] = get_ros()
+            def getMAC(interface):
+                try:
+                    str = open('/sys/class/net/' + interface + '/address').read()
+                except:
+                    str = "00:00:00:00:00:00"
+                return str[0:17]
+
+            data = {
+                'name': current_app.config["DOTBOT_NAME"],
+                'master': current_app.config["ROS_MASTER_URI"],
+                'ip': current_app.config["ROS_IP"],
+                "macaddress":getMAC('wlan0'),
+                "model":current_app.config["MODEL_HB"]
+                }
+
+            print data
+
+
+            r = requests.put("http://www.hotblackrobotics.com/robot_api/v1.0/remote_robot", data=data)
+            print r.status_code, r.reason
+    import uwsgi
+    if uwsgi.worker_id() == 1:
+        import logging
+        logging.basicConfig()
+
+        print 'worker 1'
+        from apscheduler.schedulers.background import BackgroundScheduler
+        apsched = BackgroundScheduler()
+        apsched.start()
+        apsched.add_job(sendServerInfo, 'interval', seconds=3)
 
     return app

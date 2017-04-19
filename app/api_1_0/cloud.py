@@ -59,7 +59,7 @@ def getMAC(interface):
 class Robot(Resource):
     decorators = [cross_origin(origin="*", headers=["content-type", "autorization"], methods=['GET', 'PUT'])]
     def get(self):
-        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":"dotbot-ros b0.5"})
+        return jsonify({'name': current_app.config["DOTBOT_NAME"], 'master': current_app.config["ROS_MASTER_URI"], 'ip': current_app.config["ROS_IP"], "macaddress":getMAC('wlan0'), "model":current_app.config["MODEL_HB"]})
 
 class RobotSketch(Resource):
 
@@ -210,8 +210,56 @@ class WifiScheme(Resource):
         else:
             return jsonify({'response': "non found"})
 
+import re
+
+def replace(file, pattern, subst):
+    # Read contents from file as a single string
+    file_handle = open(file, 'r')
+    file_string = file_handle.read()
+    file_handle.close()
+
+    # Use RE package to allow for replacement (also allowing for (multiline) REGEX)
+    file_string = (re.sub(pattern, subst, file_string, flags=re.MULTILINE))
+
+    # Write contents to file.
+    # Using mode 'w' truncates the file.
+    file_handle = open(file, 'w')
+    file_handle.write(file_string)
+    file_handle.close()
 
 
+class ConfHostname(Resource):
+    decorators = [cross_origin(origin='*')]
+    def get(self):
+        return jsonify({'hostname': current_app.config["DOTBOT_NAME"]})
+
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('hostname')
+        args = parser.parse_args()
+
+        if args["hostname"] is not None and args["hostname"] != "":
+            replace('/opt/virtualenvs/ros/project/config.bash', '^export\sDOTBOT_NAME.*\W', 'export DOTBOT_NAME=%s\n'%args["hostname"])
+            replace('/etc/avahi/avahi-daemon.conf', '^host-name=.*\W', 'host-name=%s\n'%args["hostname"])
+            replace('/opt/virtualenvs/ros/project/config.bash', '^export\sROS_MASTER_URI.*\W', 'export ROS_MASTER_URI=http://%s.local:11311\n'%args["hostname"])
+            return jsonify({'response': "ok"})
+        return jsonify({'response': "error"})
+
+class ManageRobot(Resource):
+    decorators = [cross_origin(origin='*')]
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('command')
+        args = parser.parse_args()
+        print 'test'
+        if args["command"] == 'poweroff':
+            subprocess.Popen(['poweroff'])
+            return jsonify({'response': "ok"})
+        elif args["command"] == 'reboot':
+            subprocess.Popen(['reboot'])
+            return jsonify({'response': "ok"})
+        else:
+            return jsonify({'response': "command not found"})
 
 rest_api.add_resource(Robot, '/discovery')
 rest_api.add_resource(RobotSketch, '/run/sketch')
@@ -220,3 +268,6 @@ rest_api.add_resource(StreamNode, '/stream/<int:id>', endpoint="stream")
 rest_api.add_resource(WifiCells, '/wifi/cells')
 rest_api.add_resource(WifiSchemes, '/wifi/schemes')
 rest_api.add_resource(WifiScheme, '/wifi/schemes/<name>')
+
+rest_api.add_resource(ConfHostname, '/conf/hostname')
+rest_api.add_resource(ManageRobot, '/manage/robot')
